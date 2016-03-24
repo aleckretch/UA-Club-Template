@@ -42,20 +42,19 @@
 			margin: 0 auto;
 			margin-bottom: 10px;
 		}
-		ul {
+		.nav_cel {
+			height:50px;
 			list-style-type: none;
 			margin: 0;
-			padding: 0;
+			//padding: 5px;
 			overflow: hidden;
 			background-color: #e3dada;
-		}
-		li {
-			padding: 14px 16px;
-			float: left;
-			width: 20%;
 			text-align: center;
+			line-height: 50px;
 		}
-		li a {
+		 
+
+		.nav_cel a {
 			font-family: MiloOT-Bold;
 			font-size: 1.5em;
 			color: white;
@@ -65,7 +64,8 @@
 			color: #AC0820;
 			text-decoration: none;
 		}
-		li a:hover {
+		
+		.nav_cel a:hover {
 			background-color: #AC0820;
 			color: white;
 			text-decoration: none;
@@ -80,13 +80,9 @@
 		.bullets {
 			margin: 0 auto;
 			text-align: center;
+			margin-top:10px;
 		}
-		.bullets img {
-			margin-top: 10px;
-			margin-bottom: 10px;
-			height: 20px;
-			width: auto;
-		}
+		
 		.content {
 			margin: 0 auto;
 			width: 90%;
@@ -131,7 +127,7 @@
 	<style>
 		.header {
 			height: 80px;
-			border: 1px solid black;
+			//border: 1px solid black;
 			width: 100%;
 		}
 		.ua_header {
@@ -170,21 +166,16 @@
 
 	</div>
 
-	<div class="nav">
-		<ul>
-			<li><a href="default.asp">Home</a>
-			</li>
-			<li><a href="news.asp">Menu1</a>
-			</li>
-			<li><a href="contact.asp">Menu2</a>
-			</li>
-			<li><a href="about.asp">Menu3</a>
-			</li>
-			<li><a href="about.asp">Menu4</a>
-			</li>
-		</ul>
-
-	</div>
+	
+	
+	<div class="nav row">
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>
+		
+			
+		</div>
 <style>
 	.main_content{
 		position: relative;
@@ -220,14 +211,26 @@
 		
 	}
 	
-	
+	.bullet{
+		display: inline-block;
+		width:20px;
+		height:20px;
+		border-radius:20px;
+		background: #EBC4CA;
+	}
+	.bullet:hover{
+		background:#AC0820;
+	}
 	
 </style>
 <div class="main_content">
 	<div class="jumbotron_area">
 		<img src="images/Layer-10.png" />
+		
 		<div class="bullets">
-			<img src="images/dots.png" />
+			<a class="bullet"></a>
+			<a class="bullet"></a>
+			<a class="bullet"></a>
 		</div>
 	</div>
 
@@ -313,6 +316,10 @@
 				<img src="images/social-icons.png" style="height:1em;">
 				
 			</div>
+		</div>
+		<br>
+		<div class="row" style="font-size:0.8em; text-align:center;  font-weight: 900" >
+		<p > All contents of this site are the property of the Associated Students of The University of Arizona. @ 2015 Arizona Board of Regents</p>
 		</div>
 	</div>
 	<footer>
