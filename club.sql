@@ -85,3 +85,5 @@ CREATE TABLE About
 	id		int NOT NULL auto_increment primary key,
 	body		text NOT NULL
 );
+
+INSERT INTO Editors( id, username ) VALUES( 1 , 'djenkins1' );
