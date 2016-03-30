@@ -20,33 +20,21 @@ CREATE TABLE Editors
 );
 
 /*
-	This holds the top menu items for the club page.
+	This holds the different links that will be on the club page.
 
-	id: 	a unique key particular to each menu item
-	title: 	the title for the menu item
-	link:	the link the menu item redirects to
+	id: 		a unique key particular to each menu item
+	title: 		the title for the menu item
+	link:		the link the menu item redirects to
+	placement:	The position of the link on the page
+			i.e:  top,bottom,facebook,twitter...
 */
-DROP TABLE IF EXISTS Top;
-CREATE TABLE Top
+DROP TABLE IF EXISTS Links;
+CREATE TABLE Links
 (
 	id		int NOT NULL auto_increment primary key,
-	title	varchar(100) NOT NULL,
-	link	varchar(255) NOT NULL
-);
-
-/*
-	This holds the bottom menu items for the club page.
-
-	id: 	a unique key particular to each menu item
-	title: 	the title for the menu item
-	link:	the link the menu item redirects to
-*/
-DROP TABLE IF EXISTS Bottom;
-CREATE TABLE Bottom
-(
-	id		int NOT NULL auto_increment primary key,
-	title	varchar(100) NOT NULL,
-	link	varchar(255) NOT NULL
+	title		varchar(100) NOT NULL,
+	link		varchar(255) NOT NULL,
+	placement	varchar( 20 ) NOT NULL
 );
 
 /*
@@ -60,8 +48,8 @@ DROP TABLE IF EXISTS Featured;
 CREATE TABLE Featured
 (
 	id		int NOT NULL auto_increment primary key,
-	link	varchar(255) NOT NULL,
-	image	varchar(255) NOT NULL
+	link		varchar(255) NOT NULL,
+	image		varchar(255) NOT NULL
 );
 
 /*
@@ -79,9 +67,21 @@ DROP TABLE IF EXISTS Articles;
 CREATE TABLE Articles
 (
 	id		int NOT NULL auto_increment primary key,
-	title	varchar(255) NOT NULL,
-	author  varchar(100) NOT NULL,
-	body	text NOT NULL,
+	title		varchar(255) NOT NULL,
+	author  	varchar(100) NOT NULL,
+	body		text NOT NULL,
 	uploadDate	date NOT NULL,
-	image	varchar(255)
+	image		varchar(255)
+);
+
+/*
+	Holds the text for the about container on the club page.
+	id: 	a unique key particular to each about text
+	body:	the main text of the about container on the club page (max of 65,535 characters)
+*/
+DROP TABLE IF EXISTS About;
+CREATE TABLE About
+(
+	id		int NOT NULL auto_increment primary key,
+	body		text NOT NULL
 );
