@@ -250,7 +250,22 @@
 	</div>
 
 	<div id="mainContent">
+		<div>
+			<select id='changer'>
+				<option value='editor' selected>Add Editor</option>
+				<option value='social'>Social Media</option>
+				<option value='top'>Header Links</option>
+				<option value='bottom'>Footer Links</option>
+				<option value='logo'>Change Logo</option>
+				<option value='about'>Change About</option>
+				<option value='featured'>Change Featured</option>
+				<option value='article'>Add Article</option>
+				<option value='articles'>Edit Articles</option>
+			</select>
+		</div>
+		<div id="changedContent">
 
+		</div>
 	</div>
 	<div class="sub_logo">
 		

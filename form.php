@@ -28,7 +28,7 @@ if ( isset( $_GET['editor'] ) )
 	}
 
 	//if the editor to be added already exists then stop
-	if ( Database::doesUserExist( $_POST['user'] ) )
+	if ( Database::doesEditorExist( $_POST['user'] ) )
 	{
 		echo "Cannot add user as editor, user is already an editor";
 		exit();

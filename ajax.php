@@ -2,8 +2,6 @@
 require_once "./database.php";
 require_once "./session.php";
 
-//TODO: Need to add links for other admin forms into the HTML in admin.php
-//TODO: Need to add form.php and form processing
 if ( isset( $_GET['admin'] ) )
 {
 	if ( !Session::userLoggedIn() )
@@ -27,13 +25,20 @@ if ( isset( $_GET['admin'] ) )
 	</form>
 <?php
 	}
-	else if ( $admin === "top" )
+	else if ( $admin === "top" || $admin === "bottom" )
 	{
 		//link form to add links to header
-	}
-	else if ( $admin === "bottom" )
-	{
-		//link form to add links to footer
+?>
+	<h1>
+		Add Link To <?php echo ucfirst( $admin );?>
+	</h1>
+	<form method='post' action='form.php?link=<?php echo $admin;?>'>
+		Link Title:<br><input type='text' name='title' required><br>
+		Link URL:<br><input type='text' name='href' required><br>
+		<input type='hidden' name='token' value='<?php echo $token;?>'>
+		<input type='submit' value='Add'>
+	</form>
+<?php
 	}
 	else if ( $admin === "social" )
 	{
@@ -41,7 +46,7 @@ if ( isset( $_GET['admin'] ) )
 		//four inputs for links, Instagram, Twitter, Facebook, and Youtube.
 ?>
 	<h1>
-		Social Media
+		Social Media Links
 	</h1>
 	<form method='post' action='form.php?social=yes'>
 		Facebook:<br><input type='text' name='facebook'><br>

@@ -244,6 +244,19 @@ class Database
 	}
 
 	/*
+		Deletes the article with the id provided.
+		Returns the error code that occured, 00000 if ok.
+	*/
+	public static function removeArticle( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Articles WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
 		Creates about text in the database with the parameters provided.
 	*/
 	public static function createAbout( $body )
