@@ -3,6 +3,7 @@ require_once "./database.php";
 require_once "./session.php";
 
 //TODO: Need to add links for other admin forms into the HTML in admin.php
+//TODO: Need to add form.php and form processing
 if ( isset( $_GET['admin'] ) )
 {
 	if ( !Session::userLoggedIn() )
@@ -12,16 +13,16 @@ if ( isset( $_GET['admin'] ) )
 	}
 
 	$admin = $_GET['admin'];
+	$token = Session::token();
 	if ( $admin === "editor" )
 	{
-	//TODO: add CSRF token to input value
 ?>
 	<h1>
 		Add Editor
 	</h1>
-	<form method='post' action='form.php'>
+	<form method='post' action='form.php?editor=yes'>
 		Editor NetID:<br><input type='text' name='user' required><br>
-		<input type='hidden' name='token' value=''>
+		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Add'>
 	</form>
 <?php
@@ -36,19 +37,18 @@ if ( isset( $_GET['admin'] ) )
 	}
 	else if ( $admin === "social" )
 	{
-		//TODO: add in CSRF token for token input
 		//TODO: show current values in DB for each link
 		//four inputs for links, Instagram, Twitter, Facebook, and Youtube.
 ?>
 	<h1>
 		Social Media
 	</h1>
-	<form method='post' action='form.php'>
+	<form method='post' action='form.php?social=yes'>
 		Facebook:<br><input type='text' name='facebook'><br>
 		Instagram:<br><input type='text' name='instagram'><br>
 		Twitter:<br><input type='text' name='twitter'><br>
 		Youtube:<br><input type='text' name='youtube'><br>
-		<input type='hidden' name='token' value=''>
+		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Save'>
 	</form>
 <?php

@@ -87,3 +87,11 @@ CREATE TABLE About
 );
 
 INSERT INTO Editors( id, username ) VALUES( 1 , 'djenkins1' );
+
+/*
+	Insert blank links for all 4 social media buttons by default so that they are known to exist
+*/
+INSERT INTO Links( title, link, placement ) VALUES( 'facebook' , '' , 'social' );
+INSERT INTO Links( title, link, placement ) VALUES( 'twitter' , '' , 'social' );
+INSERT INTO Links( title, link, placement ) VALUES( 'youtube' , '' , 'social' );
+INSERT INTO Links( title, link, placement ) VALUES( 'instagram' , '' , 'social' );

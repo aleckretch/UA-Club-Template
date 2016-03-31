@@ -16,6 +16,8 @@ class Config
 
 	public static $NET_LOGIN_URL;
 
+	public static $SOCIAL_TAGS;
+
 	static function init()
 	{
 		self::$DB_NAME = "CLUB";
@@ -29,6 +31,8 @@ class Config
 		self::$NET_LOGIN_BANNER = "Club Website";
 
 		self::$NET_LOGIN_URL = "http://localhost/UA-Club-Template/login.php";
+
+		self::$SOCIAL_TAGS = array( "facebook" , "instagram" , "twitter" , "youtube" );
 	}
 }
 Config::init();

@@ -37,11 +37,17 @@ class Session
 
 	/*
 		Sets the user in the session to the username provided
+		Returns true if the username provided is a valid editor or false otherwise
 	*/
 	public static function loginUser( $username )
 	{
-		self::setUser( $username );
-		return true;
+		if ( Database::doesEditorExist( $username ) )
+		{
+			self::setUser( $username );
+			return true;
+		}
+
+		return false;
 	}
 
 	/*

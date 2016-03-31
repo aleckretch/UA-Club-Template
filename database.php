@@ -150,6 +150,36 @@ class Database
 	}
 
 	/*
+		Returns all links that have placement value of provided.
+		So for example, to get all social media links: Database::getLinksByPlacement( "social" );
+		Or, to get all the links for the bottom of the club page: Database::getLinksByPlacement( "bottom" ); 
+	*/
+	public static function getLinksByPlacement( $placement )
+	{
+		$placement = strtolower( $placement );
+		$args = array( $placement );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Links WHERE placement=?" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Updates the social media link with the title provided to the link provided.
+	*/
+	public static function updateSocialLink( $title, $link )
+	{
+		$link = url_encode( $link );
+		$placement = "social";
+		$title = strtolower( $title );
+		$args = array( $link, $placement, $title );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "UPDATE Links SET link=? WHERE placement=? AND title=?" );
+		$stmt->execute( $args );
+		return TRUE;
+	}
+
+	/*
 		Creates a featured item for the club page with the parameters specified.
 		imageURL should be a url to allow flexibility for using images on other sites, not just uploaded ones.
 	*/
