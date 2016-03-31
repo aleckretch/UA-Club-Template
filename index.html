@@ -345,12 +345,10 @@
 	<div class="sub_logo">
 		
 	</div>
-<<<<<<< HEAD
+
 	<img class="sub_logo_img" src="images/Layer-9.png">
 	
-=======
-	<img class="sub_logo_img" src="images/ua_stack_rgb_red.png">
->>>>>>> e4450d51eb9ac2f4572eb37fae6437c93a4cf7aa
+
 	
 	<img class="bg_img" src="images/Layer-1.png" />
 	
@@ -388,14 +386,14 @@
 				<a href="#">Application</a>
 				
 			</div>
-			<div class="col col-sm-4 text-center">
+			<div class="col col-sm-4 text-center" >
 
 				
 				
-				<a href="" ><i class="fa fa-facebook-official"></i></a>
-				<a href=""><i class="fa fa-instagram"></i></a>
-				<a href=""><i class="fa fa-youtube-play"></i></a>
-				<a href=""><i class="fa fa-twitter-square"></i></a>
+				<a href="" style="color:black"><i class="fa fa-facebook-official"></i></a>
+				<a href="" style="color:black"><i class="fa fa-instagram"></i></a>
+				<a href="" style="color:black"><i class="fa fa-youtube-play"></i></a>
+				<a href="" style="color:black"><i class="fa fa-twitter-square"></i></a>
 			</div>
 		</div>
 		<br>
@@ -413,7 +411,7 @@
 		$('.search_input').focus();
 	})
 	
-	var index = 0;
+	var index = 0;    //jumbtorm slide image index 
 	
 	$('.bullet').on('click',function(){
 			var selected_index = $(this).index();
@@ -425,6 +423,24 @@
 			index = selected_index
 		
 	})
+	
+	function nextImg(){
+		var diff = 1;
+		console.log($('.jumbotron_area .jumb_image').length)
+		if (index >= $('.jumbotron_area .jumb_image').length -1 )
+			{
+			diff = -1 * ($('.jumbotron_area .jumb_image').length-1);
+			index = 0;	
+			}
+		else{
+				index+=1;
+		}
+		$('.jumbotron_area .jumb_image').animate({
+				left: '-='+100.5*diff +'%',	
+			})
+	}
+	
+	setInterval(nextImg,5000)
 	
 	
 </script>
