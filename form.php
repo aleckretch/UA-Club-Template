@@ -36,7 +36,7 @@ if ( isset( $_GET['editor'] ) )
 
 	//create the editor and redirect to the admin panel
 	Database::createEditor( $_POST['user'] );
-	header( "Location: admin.php" );
+	header( "Location: admin.html" );
 	exit();
 
 }
@@ -68,12 +68,12 @@ else if ( isset( $_GET['social'] ) )
 		Database::updateSocialLink( $key, $_POST[ $key ] );
 	}
 
-	header( "Location: admin.php" );
+	header( "Location: admin.html" );
 	exit();
 }
 else
 {
-	header( "Location: admin.php" );
+	header( "Location: admin.html" );
 	exit();
 }
 

@@ -38,21 +38,6 @@ CREATE TABLE Links
 );
 
 /*
-	This holds the featured items for the club page.
-
-	id: 	a unique key particular to each featured item
-	link:	the link the featured item redirects to
-	image:	the filename of the image to be displayed
-*/
-DROP TABLE IF EXISTS Featured;
-CREATE TABLE Featured
-(
-	id		int NOT NULL auto_increment primary key,
-	link		varchar(255) NOT NULL,
-	image		varchar(255) NOT NULL
-);
-
-/*
 	This holds the articles for the club page.
 
 	id: 	a unique key particular to each article
@@ -95,3 +80,10 @@ INSERT INTO Links( title, link, placement ) VALUES( 'facebook' , '' , 'social' )
 INSERT INTO Links( title, link, placement ) VALUES( 'twitter' , '' , 'social' );
 INSERT INTO Links( title, link, placement ) VALUES( 'youtube' , '' , 'social' );
 INSERT INTO Links( title, link, placement ) VALUES( 'instagram' , '' , 'social' );
+
+/*
+	Insert blank links for all 3 featured images by default.
+*/
+INSERT INTO Links( title, link, placement ) VALUES( 'dots.png' , 'cs.arizona.edu' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( 'A.png' , '' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( 'social-icons.png' , '' , 'featured' );

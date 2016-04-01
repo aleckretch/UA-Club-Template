@@ -3,8 +3,6 @@ require_once "./session.php";
 require_once "./database.php";
 require_once "./config.php";
 
-//TODO: Change to checking username against Editors in the database and failing to login if not found
-
 //change the address in the string when we have webspace
 $service = urlencode( Config::$NET_LOGIN_URL );
 //The banner string is passed along in the request and shows on the NetID login page
@@ -71,7 +69,7 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 }
 else if ( Session::userLoggedIn() )
 {	
-	header( "Location: admin.php" );
+	header( "Location: admin.html" );
 	exit();
 }
 else

@@ -141,7 +141,7 @@ class Database
 	*/
 	public static function createLink( $title, $href, $placement )
 	{
-		$href = url_encode( $href );
+		$href = urlencode( $href );
 		$title = self::sanitizeData( $title );
 		$args = array( $title, $href, $placement );
 		$stmt = $conn->prepare( "INSERT INTO Links( title, link, placement ) VALUES( ? , ? , ? )" );
@@ -165,11 +165,28 @@ class Database
 	}
 
 	/*
+		Returns an array of key value pairs.
+		Keys are the social media sites, i.e facebook,twitter...
+		Values are the links to the club profiles on these sites
+	*/
+	public static function getSocialLinks()
+	{
+		$toReturn = array();
+		$links = Database::getLinksByPlacement( "social" );
+		foreach( $links as $row )
+		{
+			$key = $row[ "title" ];
+			$toReturn[ $key ] = $row[ "link" ];
+		}
+		return $toReturn;
+	}
+
+	/*
 		Updates the social media link with the title provided to the link provided.
 	*/
 	public static function updateSocialLink( $title, $link )
 	{
-		$link = url_encode( $link );
+		$link = urlencode( $link );
 		$placement = "social";
 		$title = strtolower( $title );
 		$args = array( $link, $placement, $title );
@@ -180,17 +197,20 @@ class Database
 	}
 
 	/*
-		Creates a featured item for the club page with the parameters specified.
-		imageURL should be a url to allow flexibility for using images on other sites, not just uploaded ones.
+		Updates the featured item with the id provided to the parameters given as title and link.
+		Title should be the image name for the featured item.
+		Link should be the link that user goes to when clicking on the image.
 	*/
-	public static function createFeatured( $href, $imageURL )
+	public static function updateFeatured( $id, $title, $link )
 	{
-		$href = url_encode( $href );
-		$imageURL = url_encode( $imageURL );
-		$args = array( $href, $imageURL );
-		$stmt = $conn->prepare( "INSERT INTO Featured( link, image ) VALUES( ? , ? )" );
-		$stmt->execute( $args );		
-		return $conn->lastInsertId();	
+		$link = urlencode( $link );
+		$placement = "featured";
+		$title = Database::sanitizeData( $title );
+		$args = array( $link, $title, $placement, $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "UPDATE Links SET link=?,title=? WHERE placement=? AND id=?" );
+		$stmt->execute( $args );
+		return TRUE;
 	}
 
 	/*
@@ -198,10 +218,7 @@ class Database
 	*/
 	public static function getFeatured()
 	{	
-		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Featured ORDER BY id ASC" );
-		$stmt->execute();
-		return $stmt->fetchAll();
+		return Database::getLinksByPlacement( "featured" );
 	}
 
 	/*
@@ -213,7 +230,7 @@ class Database
 		$title = self::sanitizeData( $title );
 		$author = self::sanitizeData( $author );
 		$body = self::sanitizeData( $body );
-		$imageURL = url_encode( $imageURL );
+		$imageURL = urlencode( $imageURL );
 		$args = array( $title, $author, $body, $imageURL );
 		$stmt = $conn->prepare( "INSERT INTO Articles( title, author, body, uploadDate, image) VALUES( ? , ?, ? , CURDATE(), ? )" );
 		$stmt->execute( $args );		
