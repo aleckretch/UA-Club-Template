@@ -10,6 +10,7 @@ if ( !Session::userLoggedIn() )
 //TODO: NOT HERE, will probably need some kind of startup script
 //		should get at least the netid for one editor
 //		should setup the database
+//TODO: Should probably have an error page similar to the lecture notes site
 
 if ( isset( $_GET['editor'] ) )
 {
@@ -70,6 +71,56 @@ else if ( isset( $_GET['social'] ) )
 
 	header( "Location: admin.html" );
 	exit();
+}
+else if ( isset( $_GET['link'] ) && ( $_GET['link'] === "top" || $_GET['link'] === "bottom" ) )
+{
+	//if a parameter is missing then stop
+	if ( !isset( $_POST['token'] ) )
+	{
+		echo "Missing token";
+		exit();
+	}
+
+	//if the token provided does not match then stop
+	if ( !Session::verifyToken( $_POST['token'] ) )
+	{
+		echo "Failed verification of token";
+		exit();
+	}
+
+	if ( !isset( $_POST['title'] ) || !isset( $_POST['href'] ) )
+	{
+		echo "Missing required parameter";
+		exit();		
+	}
+	Database::createLink( $_POST['title'] , $_POST['href'] , $_GET['link'] );
+	header( "Location: admin.html" );
+	exit();
+}
+else if ( isset( $_GET['logo'] ) )
+{
+	//TODO:
+	//NEED TO VERIFY token
+	//NEED TO VERIFY logo is an image
+	//NEED TO VERIFY file size...
+}
+else if ( isset( $_GET['about'] ) )
+{
+	//TODO:
+}
+else if ( isset( $_GET['featured' ] ) )
+{
+	//TODO:
+	//NEED TO VERIFY token
+	//NEED TO VERIFY uploaded file is an image
+	//NEED TO VERIFY file size...
+}
+else if ( isset( $_GET['article'] ) )
+{
+	//TODO:
+	//NEED TO VERIFY token
+	//NEED TO VERIFY uploaded file is an image
+	//NEED TO VERIFY file size...
 }
 else
 {

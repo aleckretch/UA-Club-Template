@@ -28,7 +28,7 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "top" || $admin === "bottom" )
 	{
 		//link form to add links to header
-		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
+		//TODO: CHANGE OVER TO LIST OF ALL LINKS, with ability to change/remove existing or add new
 	?>
 	<h1>
 		Add Link To <?php echo ucfirst( $admin );?>
@@ -74,7 +74,7 @@ if ( isset( $_GET['admin'] ) )
 	<h5>
 		Uploading a new image will overwrite the old logo.
 	</h5>
-	<form method='post' enctype='multipart/form-data' action='form.php?link=logo'>
+	<form method='post' enctype='multipart/form-data' action='form.php?logo=yes'>
 		<img src='images/logo.png' alt='Club Logo' width=100 height=100><br>
 		Logo Image:<br><input type='file' name='logo' required><br>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
@@ -86,6 +86,21 @@ if ( isset( $_GET['admin'] ) )
 	{
 		// a WYSIWYG text editor and a save button. This will be the about text on the home page.
 		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
+		//TODO: PUT CURRENT ABOUT TEXT INTO EDITOR?
+	?>
+	<h1>
+		Edit About
+	</h1>
+	<form method='post' action='form.php?about=yes'>
+		<input type='hidden' name='token' value='<?php echo $token;?>'>
+		<span class='text'>About Text:</span><br>
+		<textarea id='text' name='text' rows='10'></textarea><br>
+		<input type='submit' value='Create'><br><br><br>
+		<script>
+			$('#text').wysibb();
+		</script>
+	</form>
+	<?php
 	}
 	else if ( $admin === "featured" )
 	{
@@ -118,11 +133,42 @@ if ( isset( $_GET['admin'] ) )
 	{
 		// a WYSIWYG text editor paragraph for article, and regular for title and author, and a save button and an optional image upload.
 		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
+	?>
+	<h1>
+		Add Article
+	</h1>
+	<form method='post' enctype='multipart/form-data' action='form.php?article=yes'>
+		<input type='hidden' name='token' value='<?php echo $token;?>'>
+		<span class='text'>Author:</span><br>
+		<input type='text' name='author' size='30' required><br>
+		<span class='text'>Title:</span><br>
+		<input type='text' name='title' size='30' required><br>
+		<span class='text'>Post:</span><br>
+		<textarea id='text' name='text' rows='10'></textarea><br>
+		Article Image(Optional):<br><input type='file' name='logo'><br>
+		<input type='submit' value='Create'>
+		<script>
+			$('#text').wysibb();
+		</script>
+	</form>
+	<?php
 	}
 	else if ( $admin === "articles" )
 	{
 		// a list of all articles from most recently posted at top to older at bottom and an x button to delete an article. Should give a warning before deleting.
 		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
+		$articles = Database::getAllArticles();
+		foreach ( $articles as $article )
+		{
+	?>
+		<div>
+			<img src="<?php echo $article['image'];?>" alt="Article Image" width=50 height=50>
+			<span><?php echo $article[ 'uploadDate' ];?> - </span>			
+			<span><?php echo $article[ 'title' ];?> - </span>
+			<button type='button'>Remove</button>
+		</div>
+	<?php
+		}
 	}
 	else
 	{

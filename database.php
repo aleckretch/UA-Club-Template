@@ -144,6 +144,7 @@ class Database
 		$href = urlencode( $href );
 		$title = self::sanitizeData( $title );
 		$args = array( $title, $href, $placement );
+		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Links( title, link, placement ) VALUES( ? , ? , ? )" );
 		$stmt->execute( $args );		
 		return $conn->lastInsertId();	

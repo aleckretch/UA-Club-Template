@@ -87,3 +87,7 @@ INSERT INTO Links( title, link, placement ) VALUES( 'instagram' , '' , 'social' 
 INSERT INTO Links( title, link, placement ) VALUES( 'dots.png' , 'cs.arizona.edu' , 'featured' );
 INSERT INTO Links( title, link, placement ) VALUES( 'A.png' , '' , 'featured' );
 INSERT INTO Links( title, link, placement ) VALUES( 'social-icons.png' , '' , 'featured' );
+
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body' , CURDATE(), 'images/A.png' );
+
+
