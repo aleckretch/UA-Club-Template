@@ -71,8 +71,6 @@ CREATE TABLE About
 	body		text NOT NULL
 );
 
-INSERT INTO Editors( id, username ) VALUES( 1 , 'djenkins1' );
-
 /*
 	Insert blank links for all 4 social media buttons by default so that they are known to exist
 */
@@ -88,6 +86,19 @@ INSERT INTO Links( title, link, placement ) VALUES( 'dots.png' , 'cs.arizona.edu
 INSERT INTO Links( title, link, placement ) VALUES( 'A.png' , '' , 'featured' );
 INSERT INTO Links( title, link, placement ) VALUES( 'social-icons.png' , '' , 'featured' );
 
+/*
+	Insert a blank about body for the club page to have empty about by default.
+*/
+INSERT INTO About( id , body ) VALUES( 1 , '' );
+
+/*
+==========================================================================
+REMOVE EVERYTHING PAST HERE WHEN IN PRODUCTION, BELOW IS FOR TESTING
+==========================================================================
+*/
+INSERT INTO Editors( id, username ) VALUES( 1 , 'djenkins1' );
 INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body' , CURDATE(), 'images/A.png' );
+
+
 
 

@@ -1,7 +1,7 @@
 <?php
 require_once "./database.php";
 require_once "./session.php";
-function handleUpload( $key )
+function handleUpload( $key, $pathToParent, $canOverwrite, $givenName = NULL )
 {
 	if ( !isset($_FILES[ $key ]['error']) || $_FILES[ $key ]['error'] !== UPLOAD_ERR_OK )
 	{
@@ -28,19 +28,27 @@ function handleUpload( $key )
 		return "";
 	}
 
-	$ext = Database::getExtensionFromMIME( $mime );
-	$fileName = "./uploads/${name}.${ext}";	
+	if ( $givenName === NULL )
+	{
+		$ext = Database::getExtensionFromMIME( $mime );
+		$fileName = "${path}/${name}.${ext}";	
+	}
+	else
+	{
+		$fileName = "${path}/${givenName}";
+	}
+
 	$result = true;
 	//if the uploads folder does not exist, create it
-	if ( !file_exists( "./uploads" ) )
+	if ( !file_exists( $path ) )
 	{
-		$result = mkdir( "./uploads" );
+		$result = mkdir( $path );
 	}
 	
 	//if the upload has been created in the past at some point
 	if ( $result === true )
 	{
-		if ( file_exists( $fileName ) )
+		if ( !canOverwrite && file_exists( $fileName ) )
 		{
 			Database::logError( "File already exists" , false );
 			return "";		
@@ -54,7 +62,7 @@ function handleUpload( $key )
 		return $fileName;
 	}
 
-	Database::logError( "Upload folder not created" , false );
+	Database::logError( "Path to folder ${path} not created" , false );
 	return "";
 }
 
@@ -156,14 +164,38 @@ else if ( isset( $_GET['link'] ) && ( $_GET['link'] === "top" || $_GET['link'] =
 }
 else if ( isset( $_GET['logo'] ) )
 {
-	//TODO:
-	//NEED TO VERIFY token
-	//NEED TO VERIFY logo is an image
-	//NEED TO VERIFY file size...
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	{
+		echo "Failed verification of token";
+		exit();
+	}
+
+	$filePath = handleUpload( "file" , "./images" , false, "logo.png" );
+	if ( $filePath === "" )
+	{
+		Database::logError( "Logo file not overwritten" , false );
+	}
+
+	header( "Location: admin.html" );
+	exit();
 }
 else if ( isset( $_GET['about'] ) )
 {
-	//TODO:
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	{
+		echo "Failed verification of token";
+		exit();
+	}
+
+	if ( !isset( $_POST['text'] ) )
+	{
+		echo "Missing text parameter for about paragraph";
+		exit();
+	}	
+
+	Database::createAbout( $_POST['text'] );
+	header( "Location: admin.html" );
+	exit();
 }
 else if ( isset( $_GET['featured' ] ) )
 {
@@ -191,7 +223,7 @@ else if ( isset( $_GET['article'] ) )
 		}
 	}
 
-	$filePath = handleUpload( "file" );
+	$filePath = handleUpload( "file" , "./uploads" , false );
 	Database::createArticle( $_POST['title'] , $_POST['author'] , $_POST['text'] , $filePath );
 	header( "Location: admin.html" );
 	exit();

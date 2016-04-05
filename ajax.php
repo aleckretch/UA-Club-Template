@@ -66,7 +66,7 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "logo" )
 	{
 		//upload form for adding a logo, overwrites current logo when uploaded
-		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
+		//TODO: NEED TO TEST FORM PROCESSING IN form.php
 	?>
 	<h1>
 		Change Logo Image
@@ -85,8 +85,7 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "about" )
 	{
 		// a WYSIWYG text editor and a save button. This will be the about text on the home page.
-		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
-		//TODO: PUT CURRENT ABOUT TEXT INTO EDITOR?
+		$about = Database::getAbout();
 	?>
 	<h1>
 		Edit About
@@ -94,8 +93,8 @@ if ( isset( $_GET['admin'] ) )
 	<form method='post' action='form.php?about=yes'>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<span class='text'>About Text:</span><br>
-		<textarea id='text' name='text' rows='10'></textarea><br>
-		<input type='submit' value='Create'><br><br><br>
+		<textarea id='text' name='text' rows='10'><?php echo Database::unsanitizeData( $about[ "body" ] );?></textarea><br>
+		<input type='submit' value='Change'><br><br><br>
 		<script>
 			$('#text').wysibb();
 		</script>

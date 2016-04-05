@@ -286,11 +286,12 @@ class Database
 
 	/*
 		Returns an array containing the text for the about container on the club page.
+		Uses the most recent about text entered into the database.
 	*/
 	public static function getAbout()
 	{
 		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY id DESC LIMIT 1" );
+		$stmt = $conn->prepare( "SELECT * FROM About ORDER BY id DESC LIMIT 1" );
 		$stmt->execute();
 		return $stmt->fetch();
 	}
