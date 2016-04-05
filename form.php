@@ -1,6 +1,63 @@
 <?php
 require_once "./database.php";
 require_once "./session.php";
+function handleUpload( $key )
+{
+	if ( !isset($_FILES[ $key ]['error']) || $_FILES[ $key ]['error'] !== UPLOAD_ERR_OK )
+	{
+		Database::logError( "File missing" , false );
+		return "";
+	}
+
+	//if the file uploaded is larger then 3mb don't allow the upload to continue into database
+	if ( $_FILES[ $key ]['size'] > 3000000) 
+	{
+		Database::logError( "File size too large" , false );
+		return "";
+	}
+
+	//open resource to get actual mime type from the file
+	$finfo = finfo_open(FILEINFO_MIME_TYPE);
+	//get the mime type from the file information on the server( doesn't use info sent by client)
+	$mime = finfo_file( $finfo, $_FILES[ $key ]['tmp_name'] );
+	$name = Database::sanitizeFileName( $_FILES[ $key ][ 'name' ] );
+
+	if ( !Database::isAllowedMIME( $mime ) )
+	{
+		Database::logError( "File is not allowed type of ${mime}" , false );
+		return "";
+	}
+
+	$ext = Database::getExtensionFromMIME( $mime );
+	$fileName = "./uploads/${name}.${ext}";	
+	$result = true;
+	//if the uploads folder does not exist, create it
+	if ( !file_exists( "./uploads" ) )
+	{
+		$result = mkdir( "./uploads" );
+	}
+	
+	//if the upload has been created in the past at some point
+	if ( $result === true )
+	{
+		if ( file_exists( $fileName ) )
+		{
+			Database::logError( "File already exists" , false );
+			return "";		
+		}
+	
+		//move the uploaded file to the uploads folder under the name of its id
+		move_uploaded_file( $_FILES[ $key ]['tmp_name'] , $fileName  );
+
+		//change the permissions on the uploaded file in the uploads folder to RW-R--R--
+		chmod( $dir, 0644 );	
+		return $fileName;
+	}
+
+	Database::logError( "Upload folder not created" , false );
+	return "";
+}
+
 if ( !Session::userLoggedIn() )
 {
 	header( "Location: login.php" );
@@ -117,10 +174,27 @@ else if ( isset( $_GET['featured' ] ) )
 }
 else if ( isset( $_GET['article'] ) )
 {
-	//TODO:
-	//NEED TO VERIFY token
-	//NEED TO VERIFY uploaded file is an image
-	//NEED TO VERIFY file size...
+	//if error code is not set on file upload array then do not allow upload to continue into database
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	{
+		echo "Failed verification of token";
+		exit();
+	}
+
+	$needed = array( "author" , "title" , "text" );
+	foreach( $needed as $param )
+	{
+		if ( !isset( $_POST[ $param ] ) )
+		{
+			echo "Missing parameter ${param}";
+			exit();
+		}
+	}
+
+	$filePath = handleUpload( "file" );
+	Database::createArticle( $_POST['title'] , $_POST['author'] , $_POST['text'] , $filePath );
+	header( "Location: admin.html" );
+	exit();
 }
 else
 {

@@ -141,7 +141,6 @@ class Database
 	*/
 	public static function createLink( $title, $href, $placement )
 	{
-		$href = urlencode( $href );
 		$title = self::sanitizeData( $title );
 		$args = array( $title, $href, $placement );
 		$conn = self::connect();
@@ -187,7 +186,6 @@ class Database
 	*/
 	public static function updateSocialLink( $title, $link )
 	{
-		$link = urlencode( $link );
 		$placement = "social";
 		$title = strtolower( $title );
 		$args = array( $link, $placement, $title );
@@ -204,7 +202,6 @@ class Database
 	*/
 	public static function updateFeatured( $id, $title, $link )
 	{
-		$link = urlencode( $link );
 		$placement = "featured";
 		$title = Database::sanitizeData( $title );
 		$args = array( $link, $title, $placement, $id );
@@ -231,8 +228,8 @@ class Database
 		$title = self::sanitizeData( $title );
 		$author = self::sanitizeData( $author );
 		$body = self::sanitizeData( $body );
-		$imageURL = urlencode( $imageURL );
 		$args = array( $title, $author, $body, $imageURL );
+		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Articles( title, author, body, uploadDate, image) VALUES( ? , ?, ? , CURDATE(), ? )" );
 		$stmt->execute( $args );		
 		return $conn->lastInsertId();	
@@ -279,6 +276,7 @@ class Database
 	*/
 	public static function createAbout( $body )
 	{
+		$conn = self::connect();
 		$body = self::sanitizeData( $body );
 		$args = array( $body );
 		$stmt = $conn->prepare( "INSERT INTO About( body ) VALUES( ? )" );
@@ -298,12 +296,32 @@ class Database
 	}
 
 	/*
+		Returns true if the mime type provided is an allowed type or false otherwise.
+		See Config.php ALLOWED_TYPES constant for complete list of allowed types
+	*/
+	public static function isAllowedMIME( $type )
+	{
+		return ( isset( Config::$ALLOWED_TYPES[ $type ] ) );
+	} 
+
+	/*
+		Returns the file extension for the mime type provided.
+		Returns null if the mime type provided is not allowed
+			See Config.php ALLOWED_TYPES constant for complete list of allowed types
+	*/
+	public static function getExtensionFromMIME( $type )
+	{
+		if ( self::isAllowedMIME( $type ) )
+		{
+			return Config::$ALLOWED_TYPES[ $type ];
+		}
+		return NULL;
+	}
+
+	/*
 		Returns the basename of the fileName provided, excluding the extension.
 		Replaces any non-alphanumeric characters with underscores, examples . .. /
 		If the fileName does not have an extension then this will still work.
-		IMPORTANT: Do not use the filename provided by users for naming the file on the server.
-			This should only be used for the file name for downloading the file.
-			See getUploadPath function in database.php for the name of the notes file on the server.
 	*/
 	public static function sanitizeFileName( $fileName )
 	{

@@ -76,7 +76,7 @@ if ( isset( $_GET['admin'] ) )
 	</h5>
 	<form method='post' enctype='multipart/form-data' action='form.php?logo=yes'>
 		<img src='images/logo.png' alt='Club Logo' width=100 height=100><br>
-		Logo Image:<br><input type='file' name='logo' required><br>
+		Logo Image:<br><input type='file' name='file' required><br>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Change'>
 	</form>
@@ -132,7 +132,6 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "article" )
 	{
 		// a WYSIWYG text editor paragraph for article, and regular for title and author, and a save button and an optional image upload.
-		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
 	?>
 	<h1>
 		Add Article
@@ -145,7 +144,7 @@ if ( isset( $_GET['admin'] ) )
 		<input type='text' name='title' size='30' required><br>
 		<span class='text'>Post:</span><br>
 		<textarea id='text' name='text' rows='10'></textarea><br>
-		Article Image(Optional):<br><input type='file' name='logo'><br>
+		Article Image(Optional):<br><input type='file' name='file'><br>
 		<input type='submit' value='Create'>
 		<script>
 			$('#text').wysibb();
@@ -157,6 +156,7 @@ if ( isset( $_GET['admin'] ) )
 	{
 		// a list of all articles from most recently posted at top to older at bottom and an x button to delete an article. Should give a warning before deleting.
 		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
+		//TODO: NEED TO ADD JAVASCRIPT TO open alert with ok button, on ok it should send a post request and if sucessful remove the article from the page without reloading
 		$articles = Database::getAllArticles();
 		foreach ( $articles as $article )
 		{

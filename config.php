@@ -18,6 +18,8 @@ class Config
 
 	public static $SOCIAL_TAGS;
 
+	public static $ALLOWED_TYPES;
+
 	static function init()
 	{
 		self::$DB_NAME = "CLUB";
@@ -33,6 +35,18 @@ class Config
 		self::$NET_LOGIN_URL = "http://localhost/UA-Club-Template/login.php";
 
 		self::$SOCIAL_TAGS = array( "facebook" , "instagram" , "twitter" , "youtube" );
+
+		self::$ALLOWED_TYPES = array(
+			"image/png" => "png",
+			"image/tiff" => "tiff",
+			"image/x-tiff" => "tiff",
+			"image/bmp" => "bmp",
+			"image/x-windows-bmp" => "bmp",
+			"image/gif" => "gif",
+			"image/x-icon" => "ico",
+			"image/jpeg" => "jpg",
+			"image/pjpeg" => "jpg"
+		);
 	}
 }
 Config::init();
