@@ -66,7 +66,6 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "logo" )
 	{
 		//upload form for adding a logo, overwrites current logo when uploaded
-		//TODO: NEED TO TEST FORM PROCESSING IN form.php
 	?>
 	<h1>
 		Change Logo Image

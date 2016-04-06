@@ -31,24 +31,24 @@ function handleUpload( $key, $pathToParent, $canOverwrite, $givenName = NULL )
 	if ( $givenName === NULL )
 	{
 		$ext = Database::getExtensionFromMIME( $mime );
-		$fileName = "${path}/${name}.${ext}";	
+		$fileName = "${pathToParent}/${name}.${ext}";	
 	}
 	else
 	{
-		$fileName = "${path}/${givenName}";
+		$fileName = "${pathToParent}/${givenName}";
 	}
 
 	$result = true;
 	//if the uploads folder does not exist, create it
-	if ( !file_exists( $path ) )
+	if ( !file_exists( $pathToParent ) )
 	{
-		$result = mkdir( $path );
+		$result = mkdir( $pathToParent );
 	}
 	
 	//if the upload has been created in the past at some point
 	if ( $result === true )
 	{
-		if ( !canOverwrite && file_exists( $fileName ) )
+		if ( !$canOverwrite && file_exists( $fileName ) )
 		{
 			Database::logError( "File already exists" , false );
 			return "";		
@@ -58,11 +58,11 @@ function handleUpload( $key, $pathToParent, $canOverwrite, $givenName = NULL )
 		move_uploaded_file( $_FILES[ $key ]['tmp_name'] , $fileName  );
 
 		//change the permissions on the uploaded file in the uploads folder to RW-R--R--
-		chmod( $dir, 0644 );	
+		chmod( $fileName, 0644 );	
 		return $fileName;
 	}
 
-	Database::logError( "Path to folder ${path} not created" , false );
+	Database::logError( "Path to folder ${pathToParent} not created" , false );
 	return "";
 }
 
@@ -72,31 +72,29 @@ if ( !Session::userLoggedIn() )
 	exit();
 }
 
-//TODO: NOT HERE, will probably need some kind of startup script
-//		should get at least the netid for one editor
-//		should setup the database
-//TODO: Should probably have an error page similar to the lecture notes site
-
 if ( isset( $_GET['editor'] ) )
 {
 	//if a parameter is missing then stop
 	if ( !isset( $_POST['user'] ) || !isset( $_POST['token'] ) )
 	{
-		echo "Missing user or token";
+		$message = urlencode( "Missing user or token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	//if the token provided does not match then stop
 	if ( !Session::verifyToken( $_POST['token'] ) )
 	{
-		echo "Failed verification of token";
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	//if the editor to be added already exists then stop
 	if ( Database::doesEditorExist( $_POST['user'] ) )
 	{
-		echo "Cannot add user as editor, user is already an editor";
+		$message = urlencode( "Cannot add user as editor, user is already an editor" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -109,16 +107,10 @@ if ( isset( $_GET['editor'] ) )
 else if ( isset( $_GET['social'] ) )
 {
 	//if a parameter is missing then stop
-	if ( !isset( $_POST['token'] ) )
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
 	{
-		echo "Missing token";
-		exit();
-	}
-
-	//if the token provided does not match then stop
-	if ( !Session::verifyToken( $_POST['token'] ) )
-	{
-		echo "Failed verification of token";
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -139,24 +131,18 @@ else if ( isset( $_GET['social'] ) )
 }
 else if ( isset( $_GET['link'] ) && ( $_GET['link'] === "top" || $_GET['link'] === "bottom" ) )
 {
-	//if a parameter is missing then stop
-	if ( !isset( $_POST['token'] ) )
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
 	{
-		echo "Missing token";
-		exit();
-	}
-
-	//if the token provided does not match then stop
-	if ( !Session::verifyToken( $_POST['token'] ) )
-	{
-		echo "Failed verification of token";
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	if ( !isset( $_POST['title'] ) || !isset( $_POST['href'] ) )
 	{
-		echo "Missing required parameter";
-		exit();		
+		$message = urlencode( "Missing required parameter" );
+		header( "Location: error.php?error=${message}" );
+		exit();	
 	}
 	Database::createLink( $_POST['title'] , $_POST['href'] , $_GET['link'] );
 	header( "Location: admin.html" );
@@ -166,11 +152,12 @@ else if ( isset( $_GET['logo'] ) )
 {
 	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
 	{
-		echo "Failed verification of token";
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
-	$filePath = handleUpload( "file" , "./images" , false, "logo.png" );
+	$filePath = handleUpload( "file" , "./images" , true, "logo.png" );
 	if ( $filePath === "" )
 	{
 		Database::logError( "Logo file not overwritten" , false );
@@ -183,13 +170,15 @@ else if ( isset( $_GET['about'] ) )
 {
 	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
 	{
-		echo "Failed verification of token";
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
 	if ( !isset( $_POST['text'] ) )
 	{
-		echo "Missing text parameter for about paragraph";
+		$message = urlencode( "Missing text parameter for about paragraph" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}	
 
@@ -209,7 +198,8 @@ else if ( isset( $_GET['article'] ) )
 	//if error code is not set on file upload array then do not allow upload to continue into database
 	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
 	{
-		echo "Failed verification of token";
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
 		exit();
 	}
 
@@ -218,7 +208,8 @@ else if ( isset( $_GET['article'] ) )
 	{
 		if ( !isset( $_POST[ $param ] ) )
 		{
-			echo "Missing parameter ${param}";
+			$message = urlencode( "Missing ${param} parameter" );
+			header( "Location: error.php?error=${message}" );
 			exit();
 		}
 	}

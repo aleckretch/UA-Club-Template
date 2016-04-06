@@ -1,3 +1,10 @@
+<?php
+$error = "";
+if ( isset( $_GET[ 'error'] ) )
+{
+	$error = $_GET['error'];
+}
+?>
 <!doctype html>
 <html>
 <head>
@@ -225,22 +232,7 @@
 </style>
 <div class="main_content" style='min-height: 10em;'>
 	<div id="mainContent">
-		<div>
-			<select id='changer'>
-				<option value='editor' selected>Add Editor</option>
-				<option value='social'>Social Media</option>
-				<option value='top'>Header Links</option>
-				<option value='bottom'>Footer Links</option>
-				<option value='logo'>Change Logo</option>
-				<option value='about'>Change About</option>
-				<option value='featured'>Change Featured</option>
-				<option value='article'>Add Article</option>
-				<option value='articles'>Edit Articles</option>
-			</select>
-		</div>
-		<div id="changedContent">
-
-		</div>
+		<?php echo Database::sanitizeData( $error );?>
 	</div>
 	<div class="sub_logo">
 		
@@ -267,14 +259,6 @@
 	
 </style>
 
-<div class="footer">
-	<div class="row" style="font-size:0.8em; text-align:center;  font-weight: 900" >
-	<p > All contents of this site are the property of the Associated Students of The University of Arizona. &copy; 2015 Arizona Board of Regents</p>
-	</div>
-</div>
-<footer>
-
-</footer>
 </body>
 
 </html>
