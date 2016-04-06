@@ -12,6 +12,7 @@ if ( isset( $_GET['admin'] ) )
 
 	$admin = $_GET['admin'];
 	$token = Session::token();
+	echo "<script>PHP_TOKEN = \"${token}\";</script>";
 	if ( $admin === "editor" )
 	{
 	?>
@@ -153,17 +154,15 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "articles" )
 	{
 		// a list of all articles from most recently posted at top to older at bottom and an x button to delete an article. Should give a warning before deleting.
-		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
-		//TODO: NEED TO ADD JAVASCRIPT TO open alert with ok button, on ok it should send a post request and if sucessful remove the article from the page without reloading
 		$articles = Database::getAllArticles();
 		foreach ( $articles as $article )
 		{
 	?>
-		<div>
+		<div id="article<?php echo $article['id'];?>">
 			<img src="<?php echo $article['image'];?>" alt="Article Image" width=50 height=50>
 			<span><?php echo $article[ 'uploadDate' ];?> - </span>			
 			<span><?php echo $article[ 'title' ];?> - </span>
-			<button type='button'>Remove</button>
+			<button type='button' onclick="removeArticle( <?php echo $article['id'];?> );">Remove</button>
 		</div>
 	<?php
 		}
@@ -172,5 +171,23 @@ if ( isset( $_GET['admin'] ) )
 	{
 		echo "Not a request";
 	}
+	exit();
+}
+else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
+{
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	{
+		echo "Not logged in";
+		exit();
+	}
+
+	if ( !isset( $_POST[ 'remove'] ) )
+	{
+		echo "Missing article id";
+		exit();
+	}
+
+	Database::removeArticle( $_POST[ 'remove'] );
+	echo "true";
 	exit();
 }

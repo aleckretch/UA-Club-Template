@@ -188,10 +188,25 @@ else if ( isset( $_GET['about'] ) )
 }
 else if ( isset( $_GET['featured' ] ) )
 {
-	//TODO:
-	//NEED TO VERIFY token
-	//NEED TO VERIFY uploaded file is an image
-	//NEED TO VERIFY file size...
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	{
+		$message = urlencode( "Failed verification of token" );
+		header( "Location: error.php?error=${message}" );
+		exit();
+	}
+
+	$featured = Database::getFeatured();
+	for( $i = 1; $i <= count( $featured ); $i++ )
+	{
+		if ( isset( $_POST[ "f${i}Text" ] ) )
+		{
+			$filePath = handleUpload( "f${i}Image" , "./images" , false );
+			Database::updateFeatured( $featured[ $i - 1 ][ "id" ] , $filePath, $_POST[ "f${i}Text" ] );
+		}
+	}
+
+	header( "Location: admin.html" );
+	exit();
 }
 else if ( isset( $_GET['article'] ) )
 {
