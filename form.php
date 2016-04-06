@@ -196,12 +196,15 @@ else if ( isset( $_GET['featured' ] ) )
 	}
 
 	$featured = Database::getFeatured();
-	for( $i = 1; $i <= count( $featured ); $i++ )
+	foreach( $featured as $key=>$row )
 	{
+		$i = $key + 1;
 		if ( isset( $_POST[ "f${i}Text" ] ) )
 		{
 			$filePath = handleUpload( "f${i}Image" , "./images" , false );
-			Database::updateFeatured( $featured[ $i - 1 ][ "id" ] , $filePath, $_POST[ "f${i}Text" ] );
+			//if the filePath is empty from handleUpload, then use the old file that was already in the database
+			$filePath = ( $filePath === "" ? $row[ "title" ] : $filePath );
+			Database::updateFeatured( $row[ "id" ] , $filePath, $_POST[ "f${i}Text" ] );
 		}
 	}
 

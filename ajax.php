@@ -104,7 +104,6 @@ if ( isset( $_GET['admin'] ) )
 	else if ( $admin === "featured" )
 	{
 		//three spots to enter a link and upload an image. This will be for the home page featured section.
-		//TODO: NEED TO HANDLE FORM PROCESSING IN form.php
 	?>
 	<h1>
 		Change Featured Images
@@ -112,13 +111,13 @@ if ( isset( $_GET['admin'] ) )
 	<h5>
 		Uploading a new image will overwrite the old image.
 	</h5>
-	<form method='post' enctype='multipart/form-data' action='form.php?link=logo'>
+	<form method='post' enctype='multipart/form-data' action='form.php?featured=yes'>
 	<?php
 	$featured = Database::getFeatured();
 	foreach ( $featured as $key=>$row )
 	{
 		$i = $key + 1;
-		echo "<br><img src='images/${row['title']}' alt='Featured Image ${i}' width=50 height=50/><br>";
+		echo "<br><img src='${row['title']}' alt='Featured Image ${i}' width=50 height=50/><br>";
 		echo "Featured ${i} Image:<br><input type='file' name='f${i}Image'><br>";
 		echo "Featured ${i} Link:<br><input type='text' name='f${i}Text' value='${row['link']}'><br>";
 	}
