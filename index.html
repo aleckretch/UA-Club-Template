@@ -1,3 +1,11 @@
+<?php
+    require_once './database.php';
+
+    $aboutArray = Database::getAbout();
+    $aboutText = $aboutArray['body'];
+
+?>
+
 <!doctype html>
 <html>
 
@@ -309,7 +317,7 @@
 			<div class="">
 				<div class="col-xs-12 text_box">
 					<div class="">
-						After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.
+						<?php if($aboutText === "") { echo "There is currently no About section."; } else { echo $aboutText; } ?>
 					</div>
 				</div>
 			</div>
