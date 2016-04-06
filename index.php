@@ -3,6 +3,11 @@
 
     $aboutArray = Database::getAbout();
     $aboutText = $aboutArray['body'];
+    $links = Database::getSocialLinks();
+    $facebookLink = $links['facebook'];
+    $twitterLink = $links['twitter'];
+    $instagramLink = $links['instagram'];
+    $youtubeLink = $links['youtube'];
 
 ?>
 
@@ -396,12 +401,23 @@
 			</div>
 			<div class="col col-sm-4 text-center" >
 
-				
-				
-				<a href="" style="color:black"><i class="fa fa-facebook-official"></i></a>
-				<a href="" style="color:black"><i class="fa fa-instagram"></i></a>
-				<a href="" style="color:black"><i class="fa fa-youtube-play"></i></a>
-				<a href="" style="color:black"><i class="fa fa-twitter-square"></i></a>
+				<?php
+                
+                    if($facebookLink !== "") {
+                        echo '<a href="' . $facebookLink . '" style="color:black"><i class="fa fa-facebook-official"></i></a>';
+                    }
+                    if($instagramLink !== "") {
+                        echo '<a href="' . $instagramLink . '" style="color:black"><i class="fa fa-instagram"></i></a>';
+                    }
+                    if($youtubeLink !== "") {
+                        echo '<a href="' . $youtubeLink . '" style="color:black"><i class="fa fa-youtube-play"></i></a>';
+                    }
+                    if($twitterLink !== "") {
+                        echo '<a href="' . $twitterLink . '" style="color:black"><i class="fa fa-twitter-square"></i></a>';
+                    }
+                
+                ?>
+                
 			</div>
 		</div>
 		<br>
