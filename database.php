@@ -244,7 +244,18 @@ class Database
 		$args = array( $id );
 		$stmt = $conn->prepare( "SELECT * FROM Articles WHERE id=?" );
 		$stmt->execute( $args );
-		return $stmt->fetchAll();
+		return $stmt->fetch();
+	}
+
+	/*
+		Returns the contents of the most recent article.
+	*/
+	public static function getMostRecentArticle()
+	{
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY uploadDate DESC,id DESC LIMIT 1" );
+		$stmt->execute();
+		return $stmt->fetch();
 	}
 
 	/*

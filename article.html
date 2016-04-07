@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<title>UA Club Template</title>
@@ -11,7 +10,10 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+	<script src="js/main.js"></script>
+	<script src="js/article.js"></script>
+	<script src="js/xbbcode.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/xbbcode.css">
 	<style>
 		body {
 			width:100%;
@@ -259,9 +261,9 @@
 
 	<div class="contentpage">
 		<div class="about">
-			<h1 style="color:#AC0820; font-size: 35px;font-family: MiloOT-Bold;">Spring Fling Applications Out</h1>
-			<h2 style="color:grey; font-size: 15px; font-family:MiloOT-Thin;">March 3rd, 2016</h2>
-			<div class="">
+			<h1 id="aboutTitle" style="color:#AC0820; font-size: 35px;font-family: MiloOT-Bold;">Spring Fling Applications Out</h1>
+			<h2 id="aboutDate" style="color:grey; font-size: 15px; font-family:MiloOT-Thin;">March 3rd, 2016</h2>
+			<div id="aboutText" class="">
 			    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat velit, ultrices ut est in, ultricies rutrum magna. Curabitur facilisis sem ac magna maximus vulputate. Nunc ut tellus lacinia, iaculis dui et, tincidunt lorem. Integer porttitor dapibus quam. Sed fermentum a massa quis faucibus. Nullam hendrerit ex luctus sem interdum aliquet. Integer leo orci, sodales et consequat eu, egestas mattis eros. Praesent sed lobortis nibh. Pellentesque ac risus lectus. Donec elementum fringilla dui id blandit. Aenean gravida luctus tellus sed lobortis. Sed vitae vestibulum orci. Donec sed porta nisi, sed ullamcorper mauris. Aliquam scelerisque, dolor non interdum tincidunt, nulla nisi feugiat dui, feugiat consectetur dolor lectus ut erat.</p>
 
                 <p>Aliquam sit amet magna ut tellus hendrerit porttitor vitae sed sapien. In lacinia sem vitae metus eleifend, ut scelerisque nisl vehicula. Donec in purus sit amet magna hendrerit pellentesque vitae vitae ante. Ut id sem nec ligula maximus fringilla in quis nibh. Aenean ultricies metus eget fringilla aliquam. Ut tempor erat nec imperdiet venenatis. Mauris laoreet mauris id felis molestie gravida. Pellentesque viverra est sit amet eros condimentum, vel tincidunt augue molestie. Sed ultricies elementum est, et molestie mi eleifend at.</p>
@@ -273,7 +275,6 @@
                 <p>Sed varius odio quis neque venenatis condimentum. Vivamus tristique in lacus eget dignissim. Fusce et magna ac lorem mattis vehicula. Ut libero justo, pellentesque ut orci id, finibus convallis sem. Ut ultricies turpis ac facilisis gravida. Proin vel augue mauris. Nunc tincidunt risus ante. Maecenas consequat, enim ac faucibus feugiat, augue magna consequat lacus, sit amet venenatis tortor nisl in lacus. Aenean venenatis lorem libero, quis consectetur mauris ultrices at.</p>
 				</div>
 				</div>
-				<p>Thank you for reading! :)</p>
 			</div>
 		<div>
 	
@@ -328,43 +329,4 @@
 
 	</footer>
 </body>
-<script>
-	$('.ua_header .pull-right').on('click',function(){
-		$('.pull-right').toggleClass('expand');
-		$('.search_input').focus();
-	})
-	
-	var index = 0;    //jumbtorm slide image index 
-	
-	$('.bullet').on('click',function(){
-			var selected_index = $(this).index();
-			var diff =  selected_index - index  ;
-			$('.jumbotron_area .jumb_image').animate({
-				left: '-='+100.5*diff +'%',
-				
-			})
-			index = selected_index
-		
-	})
-	
-	function nextImg(){
-		var diff = 1;
-		console.log($('.jumbotron_area .jumb_image').length)
-		if (index >= $('.jumbotron_area .jumb_image').length -1 )
-			{
-			diff = -1 * ($('.jumbotron_area .jumb_image').length-1);
-			index = 0;	
-			}
-		else{
-				index+=1;
-		}
-		$('.jumbotron_area .jumb_image').animate({
-				left: '-='+100.5*diff +'%',	
-			})
-	}
-	
-	setInterval(nextImg,5000)
-	
-	
-</script>
 </html>

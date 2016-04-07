@@ -196,3 +196,15 @@ else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
 	echo "true";
 	exit();
 }
+else if ( isset( $_GET['articlePage' ] ) )
+{
+	if ( $_GET['articlePage'] === "recent" )
+	{
+		echo json_encode( Database::getMostRecentArticle() );
+	}
+	else
+	{
+		echo json_encode( Database::getArticleByID( $_GET['articlePage'] ) );
+	}
+	exit();
+}
