@@ -3,12 +3,14 @@
 
     $aboutArray = Database::getAbout();
     $aboutText = $aboutArray['body'];
+
     $links = Database::getSocialLinks();
     $facebookLink = $links['facebook'];
     $twitterLink = $links['twitter'];
     $instagramLink = $links['instagram'];
     $youtubeLink = $links['youtube'];
 
+    $articles = Database::getAllArticles();
 ?>
 
 <!doctype html>
@@ -335,22 +337,46 @@
 		</div>
 
 		<div class="upcoming col col-xs-12 col-sm-6">
-			<h1>Upcoming</h1>
-
-
-			<div class="">
-				<div class=" text_box col-xs-12">
-					<p class="title">Growing up With the AZ Insecr Festival
-						<p>
-							Spring Fling provides over 35 rides and games to attendees, over 20 different food booths with a wide variety ranging from corn dogs to crab puffs.
-				</div>
-			</div>
-			<div class="">
-				<div class=" text_box col-xs-12">
-					<p class="title">New Agreement to Aid Rural Mexican Students</p>
-					Countless volunteers work before and during the event to make sure that it runs smoothly for all of your excited guests!
-				</div>
-			</div>
+					<h1>Latest News</h1>
+            
+            <div class="">
+                <div class=" text_box col-xs-12">
+            <?php 
+                $articleBody = $articles['0']['body'];
+                    
+                if(empty($articles)) {
+                    echo "<p> There are no news to display";
+                } else {
+                    if(strlen($articleBody) > 356) {
+                        $articleBody = substr($articleBody, 0 ,355);
+                    }
+                    echo "<p class='title'>" . $articles['0']['title'];
+                    echo "<p>" . $articleBody;
+                }
+            
+            ?>
+                </div>
+            </div>
+            
+            
+            <?php 
+                
+                if(isset($articles[1])) {
+                    $articleBody = $articles['1']['body'];
+                    
+                    if(strlen($articleBody) > 356) {
+                        $articleBody = substr($articleBody, 0 ,355);
+                    }
+                    
+                    echo '<div class="">
+                <div class=" text_box col-xs-12">';
+                    echo "<p class='title'>" . $articles['1']['title'];
+                    echo "<p>" . $articleBody;
+                    echo '</div>
+            </div>';
+                }
+            
+            ?>
 
 		</div>
 	</div>
