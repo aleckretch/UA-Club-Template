@@ -174,9 +174,15 @@ if ( isset( $_GET['admin'] ) )
 }
 else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
 {
-	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	if ( !Session::userLoggedIn() )
 	{
 		echo "Not logged in";
+		exit();
+	}
+
+	if ( !isset( $_POST['token'] ) || !Session::verifyToken( $_POST['token'] ) )
+	{
+		echo "Missing token or invalid token";
 		exit();
 	}
 

@@ -20,9 +20,12 @@
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="css/xbbcode.css">
 	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/xbbcode.js"></script>
+	<script src="js/main.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 
@@ -321,7 +324,7 @@
 			<h1>About</h1>
 			<div class="">
 				<div class="col-xs-12 text_box">
-					<div class="">
+					<div id="aboutTextContent" class="">
 						<?php if($aboutText === "") { echo "There is currently no About section."; } else { echo $aboutText; } ?>
 					</div>
 				</div>
