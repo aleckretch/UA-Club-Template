@@ -1,3 +1,17 @@
+<?php
+    require_once './database.php';
+
+    $aboutArray = Database::getAbout();
+    $aboutText = $aboutArray['body'];
+
+    $links = Database::getSocialLinks();
+    $facebookLink = $links['facebook'];
+    $twitterLink = $links['twitter'];
+    $instagramLink = $links['instagram'];
+    $youtubeLink = $links['youtube'];
+
+    $articles = Database::getAllArticles();
+?>
 <!doctype html>
 <html>
 
@@ -301,37 +315,53 @@
 		<div class="about">
 			<h1> News & Events</h1>
 		</div>
-        
-        <div class="newsbox">
-			<h1> Spring Fling Director Applications Out </h1>
-			<h2> Posted: March 3rd, 2016 </h2>
-			<p>After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.</p>
-		</div>
-		
-		<div class="newsbox">
-			<h1> Street Team Apps Due Thursday </h1>
-			<h2> Posted: March 10th, 2016 </h2>
-			<p>After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.</p>
-		</div>
-		
-		<div class="newsbox">
-			<h1> Spring Fling Preticket Sales </h1>
-			<h2> Posted: March 21st, 2016 </h2>
-			<p>After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.</p>
-		</div>
-		
-		<div class="newsbox">
-			<h1> Sign Your Club for a Booth! </h1>
-			<h2> Posted: April 1st, 2016 </h2>
-			<p>After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.</p>
-		</div>
+  			
+			<?php 
+			if (empty($articles)) {
+				echo "No articles found.";
+			} else {
+			
+				$article_limit = 6; // 6 articles per page
+				$article_count = count($articles);
+				if ( isset($_GET['page'])) 
+				{
+					$page = $_GET['page'];
+					$offset = $article_limit * ($page - 1);
+				} 
+				else 
+				{
+					$page = 1;
+					$offset = 0;
+				}
+				
+				$current_articles = Database::getArticlesForNewsfeed($offset, $article_limit);
+				if ( empty( $current_articles ) )
+				{
+					echo "No articles found for this page.";
+				}
+				foreach ($current_articles as $article) {
+				?>
+				<div class="newsbox">
+					<h1> <?php echo $article['title'];?> </h1>
+					<h2> Posted: <?php echo $article['uploadDate'];?> </h2>
+					<p> <?php  $articleBody = $article['body'];
+					if(strlen($articleBody) > 356) {
+                        $articleBody = substr($articleBody, 0 ,355);
+                    }
+                    echo $articleBody; ?></p>
+				</div>
+				<?php } 
+				} ?>
 		
 		<div id="pageindicator">
             <ul>
-                <li id="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">></a></li>
+            	<?php
+            	for ($i = 1; $i <= ceil($article_count / $article_limit); $i++) {
+            		?> <li <?php
+            		if ($i == $page) { echo 'id="active"';}?>>
+            		<a href="newsfeed.php?page=<?php echo $i;?>" > <?php echo $i;?></a>
+            		</li>
+            	<?php } ?>
             </ul>
         </div>
 	</div>

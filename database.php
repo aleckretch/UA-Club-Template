@@ -270,6 +270,17 @@ class Database
 	}
 
 	/*
+		Gets an array of the articles for the certain page(offset) in the newsfeed, sorted by most recent first.
+	*/
+	public static function getArticlesForNewsfeed($offset, $article_limit)
+	{
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY uploadDate DESC,id DESC LIMIT $offset, $article_limit");
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	/*
 		Deletes the article with the id provided.
 		Returns the error code that occured, 00000 if ok.
 	*/
