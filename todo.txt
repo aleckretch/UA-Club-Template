@@ -1,0 +1,10 @@
+Get all CSS from different pages into one css file
+
+Links need to be dynamic in header and footer
+	Needs to work on all pages
+
+Make social media links show up dynamically on all pages, not just index.php
+
+Finish up startup.php to make setting up on server less of a hassle
+
+Need featured items in jumbotron to be dynamic, picture and link based on what's in database

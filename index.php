@@ -33,16 +33,19 @@
 
 	<style>
 		body {
-			width: 100%;
+			width:100%;
 			min-height: 1000px;
 			position: relative;
 		}
-		a {
+		a{
 			text-decoration: none !important;
+			
 		}
 		.theme-red {
 			background: #AC0820;
 		}
+		
+		
 		.logo {
 			height: 200px;
 			display: flex;
@@ -59,7 +62,7 @@
 			margin-bottom: 10px;
 		}
 		.nav_cel {
-			height: 50px;
+			height:50px;
 			list-style-type: none;
 			margin: 0;
 			//padding: 5px;
@@ -68,6 +71,8 @@
 			text-align: center;
 			line-height: 50px;
 		}
+		 
+
 		.nav_cel a {
 			font-family: MiloOT-Bold;
 			font-size: 1.5em;
@@ -78,29 +83,36 @@
 			color: #AC0820;
 			text-decoration: none;
 		}
+		
 		.nav_cel a:hover {
 			background-color: #AC0820;
 			color: white;
 			text-decoration: none;
 		}
+		
 		.jumbotron_area {
+			
 			white-space: nowrap;
 			text-align: center;
 			overflow: hidden;
 		}
 		.jumbotron_area img {
 			width: 90%;
+			
 		}
-		.jumb_image {
+		.jumb_image{
 			position: relative;
 			width: 100%;
 			display: inline-block;
+			
+		
 		}
 		.bullets {
 			margin: 0 auto;
 			text-align: center;
-			margin-top: 10px;
+			margin-top:10px;
 		}
+		
 		.content {
 			margin: 0 auto;
 			width: 90%;
@@ -152,51 +164,57 @@
 			height: 60px;
 			padding: 10px;
 		}
-		.ua_header .left {
+		.ua_header .left{
 			position: absolute;
-			top: 5px;
+				top:5px;
 		}
 		.ua_header img {
 			margin-left: 3px;
 			height: 60px;
 		}
-		.pull-right {
+		.pull-right{
 			float: none;
-			right: 0px;
-			height: 60px;
+			right:0px;
+				height: 60px;
+			
 		}
 		.pull-right .glyphicon-search {
 			line-height: 60px;
 			font-size: 2.5em;
+		
 			color: white;
 			padding-right: 10px;
-			transition: all .3s;
+			transition:  all .3s ;
 		}
-		.search_input {
-			right: 10px;
+		.search_input{
+			right:10px;
 			height: 40px;
-			width: 0px;
+		
+			width:0px;
 			padding: 0;
 			margin: 0;
 			border: 0;
 			border: none;
-			font-family: MiloOT-Thin;
-			transition: all .3s;
+			font-family:MiloOT-Thin;
+			transition:  all .3s ;
+			  
 		}
-		.search_input:focus {
-			outline-width: 0;
+		.search_input:focus{
+			 outline-width: 0;
 		}
-		.pull-right.expand .search_input {
+		.pull-right.expand .search_input{
 			border-left: 30px white solid;
+			
 			font-size: 2em;
-			width: 150px;
-			transition: all .3s;
+			width:150px;
+			 transition:  all .3s ; 
+			
 		}
-		.pull-right.expand .glyphicon-search {
-			transition: all .5s;
+		.pull-right.expand .glyphicon-search{
+			transition:  all .5s ; 
 			font-size: 1em;
-			color: #AC0820;
-			right: -40px;
+			color:#AC0820;
+			right:-40px;
 			font-size: 1.6em;
 		}
 	</style>
@@ -207,9 +225,9 @@
 			</div>
 			<div class="pull-right">
 				<a href="#">
-
+					
 					<span class="glyphicon glyphicon-search"></span>
-					<input class="search_input" type="text" />
+					<input class="search_input" type="text"/>
 				</a>
 			</div>
 		</div>
@@ -222,106 +240,86 @@
 
 	</div>
 
-	<style>
-	@media only screen and (max-width: 800px) {
-    	.nav_cel {
-			width:100%;
-			display: block;
-			float: none;
-    }
-}
-		
-	</style>
-
+	
+	
 	<div class="nav row">
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>
+		
+			
 		</div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a>
+<style>
+	.main_content{
+		position: relative;
+	}
+	.bg_img {
+		position: absolute;
+		width:100%;
+		 bottom: 0px;
+    	z-index: -1;
+	}
+	.main_content .sub_logo{
+		position: absolute;
+		bottom: 0px;
+		margin: 0 auto;
+		width:0px;
+		left:0;
+		right:0;
+		
+		border-top:transparent 80px solid;
+		border-right:transparent 70px solid;
+		border-left:transparent 70px solid;
+		border-bottom:#e3e3e3 80px solid;
+	}
+	
+	.main_content  .sub_logo_img{
+		position: absolute;
+		width: 70px;
+		bottom: -10px;
+		margin: 0 auto;
+		left:0;
+		right:0;
+		
+		
+	}
+	
+	.bullet{
+		display: inline-block;
+		width:20px;
+		height:20px;
+		border-radius:20px;
+		background: #EBC4CA;
+	}
+	.bullet:hover{
+		background:#AC0820;
+	}
+	
+	
+	
+</style>
+<div class="main_content">
+	<div class="jumbotron_area">
+		<div class="jumb_image">
+			<img src="images/Layer-10.png" />
 		</div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a>
+		<div class="jumb_image">
+			<img src="http://mosaic.arizona.edu/sites/mosaic.arizona.edu/themes/mosaic/images/banner_image01.jpg" />
 		</div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a>
+		<div class="jumb_image">
+			<img src="http://www.greatvaluecolleges.net/wp-content/uploads/2014/07/university-of-arizona.jpg" />
 		</div>
-
-
+		
+		
+		
+		
 	</div>
-	
-	
-	
-	<style>
-		.main_content {
-			position: relative;
-		}
-		.bg_img {
-			position: absolute;
-			width: 100%;
-			bottom: 0px;
-			z-index: -1;
-		}
-		.main_content .sub_logo {
-			position: absolute;
-			bottom: 0px;
-			margin: 0 auto;
-			width: 0px;
-			left: 0;
-			right: 0;
-			border-top: transparent 80px solid;
-			border-right: transparent 70px solid;
-			border-left: transparent 70px solid;
-			border-bottom: #e3e3e3 80px solid;
-		}
-		.main_content .sub_logo_img {
-			position: absolute;
-			width: 70px;
-			bottom: -10px;
-			margin: 0 auto;
-			left: 0;
-			right: 0;
-		}
-		.bullet {
-			display: inline-block;
-			width: 20px;
-			height: 20px;
-			border-radius: 20px;
-			background: #EBC4CA;
-		}
-		.bullet.select {
-			background: #AC0820;
-		}
-		.bullet:hover {
-			background: rgba(172, 8, 32, 0.72);
-		}
-	</style>
-	<style>
-		.jumb_image img {
-			//position: absolute;
-			//height:100%;
-
-		}
-	</style>
-	<div class="main_content">
-		<div class="jumbotron_area">
-			<div class="jumb_image">
-
-				<img src="images/Layer-10.png" />
-			</div>
-			<div class="jumb_image">
-				<img src="images/140728-eng-rooftop-0037-x3.jpg" />
-			</div>
-			<div class="jumb_image">
-				<img src="http://www.arizona.edu/sites/default/files/spring.fling__0.jpg" />
-			</div>
-
-
-
-
-		</div>
-		<div class="bullets">
-			<a class="bullet select"></a>
+	<div class="bullets">
+			<a class="bullet"></a>
 			<a class="bullet"></a>
 			<a class="bullet"></a>
 		</div>
-
 
 	<div class="content row" style="padding-bottom:80px" >
 		<div class="about col col-xs-12 col-sm-6">
@@ -330,20 +328,13 @@
 				<div class="col-xs-12 text_box">
 					<div id="aboutTextContent" class="">
 						<?php if($aboutText === "") { echo "There is currently no About section."; } else { echo $aboutText; } ?>
-
 					</div>
 				</div>
-
-
-
 			</div>
 
 
 
-
-
-
-		<div class="sub_logo">
+		</div>
 
 		<div class="upcoming col col-xs-12 col-sm-6">
 					<h1>Latest News</h1>
@@ -387,55 +378,57 @@
             
             ?>
 
-
 		</div>
+	</div>
+	
+	
+	
+	
+	<div class="sub_logo">
+		
+	</div>
 
-		<img class="sub_logo_img" src="images/Layer-9.png">
+	<img class="sub_logo_img" src="images/Layer-9.png">
+	
 
-
-
-		<img class="bg_img" src="images/Layer-1.png" />
-
+	
+	<img class="bg_img" src="images/Layer-1.png" />
+	
 	</div>
 
 
-
-
+	
+	
 	<style>
-		.footer {
+		.footer{
 			//height:100px;
 			background: #e2e2e2;
-			padding: 30px;
-			font-family: MiloOT-Thin;
+			padding:30px;
+			font-family:MiloOT-Thin;
 			font-size: 1.5em;
+			
 		}
-		.footer .links a {
-			color: #b1aeab;
+		.footer .links a{
+			color:#b1aeab;
 		}
-		.footer .nav {
+		.footer .nav{
 			margin: 0 auto;
+			
 		}
+		
 	</style>
 
 	<div class="footer">
 		<div class="row ">
 			<div class="col col-sm-8  text-center links">
-				<a href="#">About</a> -
-				<a href="#">Contact</a> -
+				<a href="#">About</a> - 
+				<a href="#">Contact</a> - 
 				<a href="#">Hours</a> -
 				<a href="#">Resource</a> -
 				<a href="#">Application</a>
-
+				
 			</div>
-			<div class="col col-sm-4 text-center">
-
-
-
-
-				<a href="" style="color:black"><i class="fa fa-facebook-official"></i></a>
-				<a href="" style="color:black"><i class="fa fa-instagram"></i></a>
-				<a href="" style="color:black"><i class="fa fa-youtube-play"></i></a>
-				<a href="" style="color:black"><i class="fa fa-twitter-square"></i></a>
+			<div class="col col-sm-4 text-center" >
 
 		<?php
                 
@@ -457,79 +450,12 @@
 			</div>
 		</div>
 		<br>
-		<div class="row" style="font-size:0.8em; text-align:center;  font-weight: 900">
-			<p>All contents of this site are the property of the Associated Students of The University of Arizona. &copy; 2015 Arizona Board of Regents</p>
+		<div class="row" style="font-size:0.8em; text-align:center;  font-weight: 900" >
+		<p > All contents of this site are the property of the Associated Students of The University of Arizona. &copy; 2015 Arizona Board of Regents</p>
 		</div>
 	</div>
 	<footer>
 
 	</footer>
 </body>
-<script>
-	$('.ua_header .pull-right').on('click', function () {
-		$('.pull-right').toggleClass('expand');
-		$('.search_input').focus();
-	})
-
-	var index = 0; //jumbtorm slide image index 
-
-	$('.bullet').on('click', function () {
-		var selected_index = $(this).index();
-		var diff = selected_index - index;
-		$('.jumbotron_area .jumb_image').animate({
-			left: '-=' + 100.5 * diff + '%',
-
-		})
-		index = selected_index
-		$('.bullet.select').removeClass('select');
-		$('.bullet:eq(' + index + ')').addClass('select');
-	})
-
-	function nextImg() {
-		var diff = 1;
-		console.log($('.jumbotron_area .jumb_image').length)
-		if (index >= $('.jumbotron_area .jumb_image').length - 1) {
-			diff = -1 * ($('.jumbotron_area .jumb_image').length - 1);
-			index = 0;
-		} else {
-			index += 1;
-		}
-		$('.jumbotron_area .jumb_image').animate({
-			left: '-=' + 100.5 * diff + '%',
-		})
-		$('.bullet.select').removeClass('select');
-		$('.bullet:eq(' + index + ')').addClass('select');
-	}
-
-	setInterval(nextImg, 5000);
-
-
-	$(window).resize(function () {
-		resize();
-
-	})
-
-	function resize() {
-		$(".jumb_image img:eq(0)").css({
-			width: '90%'
-		});
-		$(".jumb_image img:eq(0)").css({
-			height: '100%'
-		});
-		var fW = $(".jumb_image img:eq(0)").width();
-		var fH = $(".jumb_image img:eq(0)").height();
-
-		$('.jumb_image img').each(function () {
-			$(this).css({
-				width: fW,
-				height: fH
-			})
-		})
-
-	}
-	resize();
-</script>
-
-
 </html>
-

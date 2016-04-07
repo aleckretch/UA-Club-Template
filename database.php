@@ -141,26 +141,74 @@ class Database
 	*/
 	public static function createLink( $title, $href, $placement )
 	{
-		$href = url_encode( $href );
 		$title = self::sanitizeData( $title );
 		$args = array( $title, $href, $placement );
+		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Links( title, link, placement ) VALUES( ? , ? , ? )" );
 		$stmt->execute( $args );		
 		return $conn->lastInsertId();	
 	}
 
 	/*
-		Creates a featured item for the club page with the parameters specified.
-		imageURL should be a url to allow flexibility for using images on other sites, not just uploaded ones.
+		Returns all links that have placement value of provided.
+		So for example, to get all social media links: Database::getLinksByPlacement( "social" );
+		Or, to get all the links for the bottom of the club page: Database::getLinksByPlacement( "bottom" ); 
 	*/
-	public static function createFeatured( $href, $imageURL )
+	public static function getLinksByPlacement( $placement )
 	{
-		$href = url_encode( $href );
-		$imageURL = url_encode( $imageURL );
-		$args = array( $href, $imageURL );
-		$stmt = $conn->prepare( "INSERT INTO Featured( link, image ) VALUES( ? , ? )" );
-		$stmt->execute( $args );		
-		return $conn->lastInsertId();	
+		$placement = strtolower( $placement );
+		$args = array( $placement );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Links WHERE placement=?" );
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Returns an array of key value pairs.
+		Keys are the social media sites, i.e facebook,twitter...
+		Values are the links to the club profiles on these sites
+	*/
+	public static function getSocialLinks()
+	{
+		$toReturn = array();
+		$links = Database::getLinksByPlacement( "social" );
+		foreach( $links as $row )
+		{
+			$key = $row[ "title" ];
+			$toReturn[ $key ] = $row[ "link" ];
+		}
+		return $toReturn;
+	}
+
+	/*
+		Updates the social media link with the title provided to the link provided.
+	*/
+	public static function updateSocialLink( $title, $link )
+	{
+		$placement = "social";
+		$title = strtolower( $title );
+		$args = array( $link, $placement, $title );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "UPDATE Links SET link=? WHERE placement=? AND title=?" );
+		$stmt->execute( $args );
+		return TRUE;
+	}
+
+	/*
+		Updates the featured item with the id provided to the parameters given as title and link.
+		Title should be the image name for the featured item.
+		Link should be the link that user goes to when clicking on the image.
+	*/
+	public static function updateFeatured( $id, $title, $link )
+	{
+		$placement = "featured";
+		$title = Database::sanitizeData( $title );
+		$args = array( $link, $title, $placement, $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "UPDATE Links SET link=?,title=? WHERE placement=? AND id=?" );
+		$stmt->execute( $args );
+		return TRUE;
 	}
 
 	/*
@@ -168,10 +216,7 @@ class Database
 	*/
 	public static function getFeatured()
 	{	
-		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Featured ORDER BY id ASC" );
-		$stmt->execute();
-		return $stmt->fetchAll();
+		return Database::getLinksByPlacement( "featured" );
 	}
 
 	/*
@@ -183,8 +228,8 @@ class Database
 		$title = self::sanitizeData( $title );
 		$author = self::sanitizeData( $author );
 		$body = self::sanitizeData( $body );
-		$imageURL = url_encode( $imageURL );
 		$args = array( $title, $author, $body, $imageURL );
+		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Articles( title, author, body, uploadDate, image) VALUES( ? , ?, ? , CURDATE(), ? )" );
 		$stmt->execute( $args );		
 		return $conn->lastInsertId();	
@@ -199,7 +244,18 @@ class Database
 		$args = array( $id );
 		$stmt = $conn->prepare( "SELECT * FROM Articles WHERE id=?" );
 		$stmt->execute( $args );
-		return $stmt->fetchAll();
+		return $stmt->fetch();
+	}
+
+	/*
+		Returns the contents of the most recent article.
+	*/
+	public static function getMostRecentArticle()
+	{
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY uploadDate DESC,id DESC LIMIT 1" );
+		$stmt->execute();
+		return $stmt->fetch();
 	}
 
 	/*
@@ -214,10 +270,35 @@ class Database
 	}
 
 	/*
+		Gets an array of the articles for the certain page(offset) in the newsfeed, sorted by most recent first.
+	*/
+	public static function getArticlesForNewsfeed($offset, $article_limit)
+	{
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY uploadDate DESC,id DESC LIMIT $offset, $article_limit");
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Deletes the article with the id provided.
+		Returns the error code that occured, 00000 if ok.
+	*/
+	public static function removeArticle( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Articles WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
 		Creates about text in the database with the parameters provided.
 	*/
 	public static function createAbout( $body )
 	{
+		$conn = self::connect();
 		$body = self::sanitizeData( $body );
 		$args = array( $body );
 		$stmt = $conn->prepare( "INSERT INTO About( body ) VALUES( ? )" );
@@ -227,22 +308,43 @@ class Database
 
 	/*
 		Returns an array containing the text for the about container on the club page.
+		Uses the most recent about text entered into the database.
 	*/
 	public static function getAbout()
 	{
 		$conn = self::connect();
-		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY id DESC LIMIT 1" );
+		$stmt = $conn->prepare( "SELECT * FROM About ORDER BY id DESC LIMIT 1" );
 		$stmt->execute();
 		return $stmt->fetch();
+	}
+
+	/*
+		Returns true if the mime type provided is an allowed type or false otherwise.
+		See Config.php ALLOWED_TYPES constant for complete list of allowed types
+	*/
+	public static function isAllowedMIME( $type )
+	{
+		return ( isset( Config::$ALLOWED_TYPES[ $type ] ) );
+	} 
+
+	/*
+		Returns the file extension for the mime type provided.
+		Returns null if the mime type provided is not allowed
+			See Config.php ALLOWED_TYPES constant for complete list of allowed types
+	*/
+	public static function getExtensionFromMIME( $type )
+	{
+		if ( self::isAllowedMIME( $type ) )
+		{
+			return Config::$ALLOWED_TYPES[ $type ];
+		}
+		return NULL;
 	}
 
 	/*
 		Returns the basename of the fileName provided, excluding the extension.
 		Replaces any non-alphanumeric characters with underscores, examples . .. /
 		If the fileName does not have an extension then this will still work.
-		IMPORTANT: Do not use the filename provided by users for naming the file on the server.
-			This should only be used for the file name for downloading the file.
-			See getUploadPath function in database.php for the name of the notes file on the server.
 	*/
 	public static function sanitizeFileName( $fileName )
 	{

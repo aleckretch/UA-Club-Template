@@ -38,21 +38,6 @@ CREATE TABLE Links
 );
 
 /*
-	This holds the featured items for the club page.
-
-	id: 	a unique key particular to each featured item
-	link:	the link the featured item redirects to
-	image:	the filename of the image to be displayed
-*/
-DROP TABLE IF EXISTS Featured;
-CREATE TABLE Featured
-(
-	id		int NOT NULL auto_increment primary key,
-	link		varchar(255) NOT NULL,
-	image		varchar(255) NOT NULL
-);
-
-/*
 	This holds the articles for the club page.
 
 	id: 	a unique key particular to each article
@@ -86,4 +71,46 @@ CREATE TABLE About
 	body		text NOT NULL
 );
 
+/*
+	Insert blank links for all 4 social media buttons by default so that they are known to exist
+*/
+INSERT INTO Links( title, link, placement ) VALUES( 'facebook' , '' , 'social' );
+INSERT INTO Links( title, link, placement ) VALUES( 'twitter' , '' , 'social' );
+INSERT INTO Links( title, link, placement ) VALUES( 'youtube' , '' , 'social' );
+INSERT INTO Links( title, link, placement ) VALUES( 'instagram' , '' , 'social' );
+
+/*
+	Insert blank links for all 3 featured images by default.
+*/
+INSERT INTO Links( title, link, placement ) VALUES( 'dots.png' , 'cs.arizona.edu' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( 'A.png' , '' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( 'social-icons.png' , '' , 'featured' );
+
+/*
+	Insert a blank about body for the club page to have empty about by default.
+*/
+INSERT INTO About( id , body ) VALUES( 1 , '' );
+
+/*
+==========================================================================
+REMOVE EVERYTHING PAST HERE WHEN IN PRODUCTION, BELOW IS FOR TESTING
+==========================================================================
+*/
 INSERT INTO Editors( id, username ) VALUES( 1 , 'djenkins1' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Spring Fling Director Applications Out' , 'Dilan' , 'After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Street Team Apps Due Thursday' , 'Dilan' , 'After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.After 42 years there’s still nothing else like it! Associated Students of the University of Arizona’s Spring Fling is back again! Starting back in 1974, Spring Fling has become an iconic figure by providing carnival rides, games, food booths, and entertainment to both the University of Arizona and Tucson communities.' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 3' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 4' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 5' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 6' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 7' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 8' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 9' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 10' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 11' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 12' , CURDATE(), 'images/A.png' );
+INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 13' , CURDATE(), 'images/A.png' );
+
+
+
+

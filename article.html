@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<title>UA Club Template</title>
@@ -9,12 +8,99 @@
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-
+	<script src="js/main.js"></script>
+	<script src="js/article.js"></script>
+	<script src="js/xbbcode.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/xbbcode.css">
 	<style>
+		body {
+			width:100%;
+			min-height: 1000px;
+			position: relative;
+		}
+		a{
+			text-decoration: none !important;
+			
+		}
+		.theme-red {
+			background: #AC0820;
+		}
 		
+		
+		.logo {
+			height: 200px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.logo img {
+			margin: 10px;
+			height: 60%;
+		}
+		.nav {
+			width: 90%;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		.nav_cel {
+			height:50px;
+			list-style-type: none;
+			margin: 0;
+			//padding: 5px;
+			overflow: hidden;
+			background-color: #e3dada;
+			text-align: center;
+			line-height: 50px;
+		}
+		 
+
+		.nav_cel a {
+			font-family: MiloOT-Bold;
+			font-size: 1.5em;
+			color: white;
+			text-align: center;
+			padding: 6px 8px;
+			border-radius: 5px;
+			color: #AC0820;
+			text-decoration: none;
+		}
+		
+		.nav_cel a:hover {
+			background-color: #AC0820;
+			color: white;
+			text-decoration: none;
+		}
+		
+		.jumbotron_area {
+			
+			white-space: nowrap;
+			text-align: center;
+			overflow: hidden;
+		}
+		.jumbotron_area img {
+			width: 90%;
+			
+		}
+		.jumb_image{
+			position: relative;
+			width: 100%;
+			display: inline-block;
+			
+		
+		}
+		.bullets {
+			margin: 0 auto;
+			text-align: center;
+			margin-top:10px;
+		}
+		
+		.content {
+			margin: 0 auto;
+			width: 90%;
+			text-align: center;
+		}
 	</style>
 
 </head>
@@ -30,26 +116,70 @@
 			height: 60px;
 			padding: 10px;
 		}
+		.ua_header .left{
+			position: absolute;
+				top:5px;
+		}
 		.ua_header img {
 			margin-left: 3px;
 			height: 60px;
 		}
+		.pull-right{
+			float: none;
+			right:0px;
+				height: 60px;
+			
+		}
 		.pull-right .glyphicon-search {
 			line-height: 60px;
 			font-size: 2.5em;
-			height: 60px;
+		
 			color: white;
 			padding-right: 10px;
+			transition:  all .3s ;
+		}
+		.search_input{
+			right:10px;
+			height: 40px;
+		
+			width:0px;
+			padding: 0;
+			margin: 0;
+			border: 0;
+			border: none;
+			font-family:MiloOT-Thin;
+			transition:  all .3s ;
+			  
+		}
+		.search_input:focus{
+			 outline-width: 0;
+		}
+		.pull-right.expand .search_input{
+			border-left: 30px white solid;
+			
+			font-size: 2em;
+			width:150px;
+			 transition:  all .3s ; 
+			
+		}
+		.pull-right.expand .glyphicon-search{
+			transition:  all .5s ; 
+			font-size: 1em;
+			color:#AC0820;
+			right:-40px;
+			font-size: 1.6em;
 		}
 	</style>
 	<div class="header theme-red">
 		<div class="ua_header  clearfix">
-			<div class="pull-left">
+			<div class="left">
 				<img src="images/svg+xml.svg">
 			</div>
 			<div class="pull-right">
 				<a href="#">
+					
 					<span class="glyphicon glyphicon-search"></span>
+					<input class="search_input" type="text"/>
 				</a>
 			</div>
 		</div>
@@ -73,9 +203,9 @@
 			
 		</div>
 <style>
-	.main_content{
-		position: relative;
-	}
+    .main_content{
+        position: relative;
+    }
 	.contentpage{
 	    background-color: rgba(255, 255, 255, 0.6);
 
@@ -88,8 +218,8 @@
 	.bg_img {
 		position: absolute;
 		width:100%;
-		 bottom: 0px;
-    	z-index: -1;
+		bottom: 0px;
+        z-index: -1;
 	}
 	.main_content .sub_logo{
 		position: absolute;
@@ -112,7 +242,6 @@
 		margin: 0 auto;
 		left:0;
 		right:0;
-		
 	}
     .about h1, h2{
     line-height: 10px;
@@ -132,9 +261,9 @@
 
 	<div class="contentpage">
 		<div class="about">
-			<h1 style="color:#AC0820; font-size: 35px;font-family: MiloOT-Bold;">Spring Fling Applications Out</h1>
-			<h2 style="color:grey; font-size: 15px; font-family:MiloOT-Thin;">March 3rd, 2016</h2>
-			<div class="">
+			<h1 id="aboutTitle" style="color:#AC0820; font-size: 35px;font-family: MiloOT-Bold;">Spring Fling Applications Out</h1>
+			<h2 id="aboutDate" style="color:grey; font-size: 15px; font-family:MiloOT-Thin;">March 3rd, 2016</h2>
+			<div id="aboutText" class="">
 			    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed erat velit, ultrices ut est in, ultricies rutrum magna. Curabitur facilisis sem ac magna maximus vulputate. Nunc ut tellus lacinia, iaculis dui et, tincidunt lorem. Integer porttitor dapibus quam. Sed fermentum a massa quis faucibus. Nullam hendrerit ex luctus sem interdum aliquet. Integer leo orci, sodales et consequat eu, egestas mattis eros. Praesent sed lobortis nibh. Pellentesque ac risus lectus. Donec elementum fringilla dui id blandit. Aenean gravida luctus tellus sed lobortis. Sed vitae vestibulum orci. Donec sed porta nisi, sed ullamcorper mauris. Aliquam scelerisque, dolor non interdum tincidunt, nulla nisi feugiat dui, feugiat consectetur dolor lectus ut erat.</p>
 
                 <p>Aliquam sit amet magna ut tellus hendrerit porttitor vitae sed sapien. In lacinia sem vitae metus eleifend, ut scelerisque nisl vehicula. Donec in purus sit amet magna hendrerit pellentesque vitae vitae ante. Ut id sem nec ligula maximus fringilla in quis nibh. Aenean ultricies metus eget fringilla aliquam. Ut tempor erat nec imperdiet venenatis. Mauris laoreet mauris id felis molestie gravida. Pellentesque viverra est sit amet eros condimentum, vel tincidunt augue molestie. Sed ultricies elementum est, et molestie mi eleifend at.</p>
@@ -146,15 +275,15 @@
                 <p>Sed varius odio quis neque venenatis condimentum. Vivamus tristique in lacus eget dignissim. Fusce et magna ac lorem mattis vehicula. Ut libero justo, pellentesque ut orci id, finibus convallis sem. Ut ultricies turpis ac facilisis gravida. Proin vel augue mauris. Nunc tincidunt risus ante. Maecenas consequat, enim ac faucibus feugiat, augue magna consequat lacus, sit amet venenatis tortor nisl in lacus. Aenean venenatis lorem libero, quis consectetur mauris ultrices at.</p>
 				</div>
 				</div>
-				<p>Thank you for reading! :)</p>
 			</div>
+		<div>
+	
+	        <img class="bg_img" src="images/Layer-1.png" />
+	
+	    </div>
 	</div>
 
-    </div>
-	
-	<img class="bg_img" src="images/Layer-1.png" />
-	
-	</div>
+    
 	
 	
 	<style>
@@ -184,9 +313,11 @@
 				<a href="#">Application</a>
 				
 			</div>
-			<div class="col col-sm-4 text-center">
-				<img src="images/social-icons.png" style="height:1.5em;">
-				
+			<div class="col col-sm-4 text-center" >
+				<a href="" style="color:black"><i class="fa fa-facebook-official"></i></a>
+				<a href="" style="color:black"><i class="fa fa-instagram"></i></a>
+				<a href="" style="color:black"><i class="fa fa-youtube-play"></i></a>
+				<a href="" style="color:black"><i class="fa fa-twitter-square"></i></a>
 			</div>
 		</div>
 		<br>
@@ -198,6 +329,4 @@
 
 	</footer>
 </body>
-
 </html>
-
