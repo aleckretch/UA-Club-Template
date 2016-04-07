@@ -194,8 +194,8 @@
 	
 	<div class="nav row">
 			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="newsfeed.php">Events</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contact Us</a></div>
 			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>
 		
 			
@@ -256,7 +256,7 @@
     .newsbox h1, h2, p{
         padding-left: 5px;
     }
-    .newsbox h1{
+    .newsbox h1 a{
         padding-top: 5px;
         line-height:-8px;
         font-size: 25px;
@@ -342,7 +342,7 @@
 				foreach ($current_articles as $article) {
 				?>
 				<div class="newsbox">
-					<h1> <?php echo $article['title'];?> </h1>
+					<h1><a href="article.html"><?php echo $article['title'];?></a></h1>
 					<h2> Posted: <?php echo $article['uploadDate'];?> </h2>
 					<p> <?php  $articleBody = $article['body'];
 					if(strlen($articleBody) > 356) {
@@ -394,7 +394,7 @@
 		<div class="row">
 			<div class="col col-sm-8  text-center">
 				<a href="#">About</a> - 
-				<a href="#">Contact</a> - 
+				<a href="newsfeed.php">Contact</a> - 
 				<a href="#">Hours</a> -
 				<a href="#">Resource</a> -
 				<a href="#">Application</a>
