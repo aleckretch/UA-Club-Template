@@ -244,8 +244,8 @@
 	
 	<div class="nav row">
 			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="newsfeed.php">Events</a></div>
+			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contact Us</a></div>
 			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>
 		
 			
