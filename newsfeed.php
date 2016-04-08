@@ -342,7 +342,7 @@
 				foreach ($current_articles as $article) {
 				?>
 				<div class="newsbox">
-					<h1><a href="article.html"><?php echo $article['title'];?></a></h1>
+					<h1><a href="article.html?id=<?php echo $article['id'];?>"><?php echo $article['title'];?></a></h1>
 					<h2> Posted: <?php echo $article['uploadDate'];?> </h2>
 					<p> <?php  $articleBody = $article['body'];
 					if(strlen($articleBody) > 356) {

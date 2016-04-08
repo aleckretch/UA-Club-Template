@@ -14,7 +14,21 @@ class Session
 	*/
 	public static function userLoggedIn()
 	{
-		return ( isset( $_SESSION['user'] ) );
+		return ( isset( $_SESSION['user'] ) && !self::checkTimeOut() );
+	}
+
+	/*
+		Checks whether the current user is timed out, and if so logs them out and returns true.
+		Otherwise returns false if they were not logged out.
+	*/
+	private static function checkTimeOut()
+	{
+		if ( !self::isTimedOut() )
+		{
+			return false;
+		}
+		logoutUser();
+		return true;
 	}
 
 	/*
@@ -44,10 +58,45 @@ class Session
 		if ( Database::doesEditorExist( $username ) )
 		{
 			self::setUser( $username );
+			self::setTimer();
 			return true;
 		}
 
 		return false;
+	}
+
+	/*
+		Sets the time in the session to the time provided.
+		This value is used to determine if a user has been logged in for too long.
+	*/
+	public static function setTimer( $toTime = NULL )
+	{
+		if ( $toTime === NULL )
+		{
+			date_default_timezone_set( "America/Phoenix" );
+			$toTime = time();
+		}
+		$_SESSION[ 'time' ] = $toTime;
+		
+	}
+
+	/*
+		Returns the time currently in session if there is a time, or 0 if there is not.
+	*/
+	public static function getTimer()
+	{
+		return ( isset( $_SESSION[ 'time' ] ) ? $_SESSION[ 'time' ] : 0 );
+	}
+
+	/*
+		Returns true if the user has been logged in for longer then a certain amount of time or false otherwise.
+	*/
+	public static function isTimedOut()
+	{
+		$totalTime = 60 * 60 * 1;
+		date_default_timezone_set( "America/Phoenix" );
+		$currentTime = time();
+		return ( $_SESSION[ 'time' ] + $totalTime < $currentTime ); 
 	}
 
 	/*

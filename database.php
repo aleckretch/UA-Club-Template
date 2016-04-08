@@ -137,6 +137,29 @@ class Database
 	}
 
 	/*
+		Returns an array of all the editors for the club site.
+	*/
+	public static function getAllEditors()
+	{
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Editors" );
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Removes the editor with the database id provided.
+	*/
+	public static function removeEditor( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Editors WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
 		Creates a link with the parameters specified.
 	*/
 	public static function createLink( $title, $href, $placement )

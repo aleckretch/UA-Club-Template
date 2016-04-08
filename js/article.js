@@ -16,6 +16,7 @@ $( document ).on( "ready" , function()
 		{
 			$( "#aboutTitle" ).text( obj.title );
 			$( "#aboutDate" ).text( obj.uploadDate );
+			$( "#articleIMG" ).attr( "src" , obj.image );
 			var content = XBBCODE.process({
 			    text: obj.body,
 			    removeMisalignedTags: true,

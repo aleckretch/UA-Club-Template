@@ -1,3 +1,15 @@
+(DONE)Leave off width on image thumbnails in admin.php
+
+(DONE)Links to articles should have their id
+
+(TEST)Fix newlines on article page issue
+
+(TEST)Logout after so long functionality
+
+(TEST)Dynamic images on article.html
+
+Other
+-=-----
 Get all CSS from different pages into one css file
 
 Links need to be dynamic in header and footer
@@ -5,8 +17,18 @@ Links need to be dynamic in header and footer
 
 Make social media links show up dynamically on all pages, not just index.php
 
-Finish up startup.php to make setting up on server less of a hassle
-
 Need featured items in jumbotron to be dynamic, picture and link based on what's in database
 
+---------------
+
+Finish up startup.php to make setting up on server less of a hassle
+
 Dynamically change the title of the site on every page based on the config.php banner constant
+
+Show current header,footer links and able to delete them
+
+Show current editors and be able to delete them
+
+Logout button in admin panel
+
+Success page on adding article...

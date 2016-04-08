@@ -19,17 +19,34 @@ if ( isset( $_GET['admin'] ) )
 	<h1>
 		Add Editor
 	</h1>
+	<div>
+	<div style='float: left;'>
 	<form method='post' action='form.php?editor=yes'>
 		Editor NetID:<br><input type='text' name='user' required><br>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Add'>
 	</form>
+	</div>
+	<div style='float: right;'>
+	<?php
+		//TODO: Clean up the styling of this, add a background...
+		$editors = Database::getAllEditors();
+		foreach( $editors as $editor )
+		{
+			//TODO: Add onclick to send ajax request
+			echo "<span>${editor['username']} - <a href='#' title='Remove'>X</a></span>";
+		}
+	?>
+	</div>
+	<div style='clear: both;'>
+	</div>
+	</div>
 	<?php
 	}
 	else if ( $admin === "top" || $admin === "bottom" )
 	{
 		//link form to add links to header
-		//TODO: CHANGE OVER TO LIST OF ALL LINKS, with ability to change/remove existing or add new
+		//TODO: Wait until styling for showing/removing editors is done then use here
 	?>
 	<h1>
 		Add Link To <?php echo ucfirst( $admin );?>
@@ -75,7 +92,7 @@ if ( isset( $_GET['admin'] ) )
 		Uploading a new image will overwrite the old logo.
 	</h5>
 	<form method='post' enctype='multipart/form-data' action='form.php?logo=yes'>
-		<img src='images/logo.png' alt='Club Logo' width=100 height=100><br>
+		<img src='images/logo.png' alt='Club Logo' height=100><br>
 		Logo Image:<br><input type='file' name='file' required><br>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Change'>
@@ -117,7 +134,7 @@ if ( isset( $_GET['admin'] ) )
 	foreach ( $featured as $key=>$row )
 	{
 		$i = $key + 1;
-		echo "<br><img src='${row['title']}' alt='Featured Image ${i}' width=50 height=50/><br>";
+		echo "<br><img src='${row['title']}' alt='Featured Image ${i}' height=50/><br>";
 		echo "Featured ${i} Image:<br><input type='file' name='f${i}Image'><br>";
 		echo "Featured ${i} Link:<br><input type='text' name='f${i}Text' value='${row['link']}'><br>";
 	}
@@ -158,7 +175,7 @@ if ( isset( $_GET['admin'] ) )
 		{
 	?>
 		<div id="article<?php echo $article['id'];?>">
-			<img src="<?php echo $article['image'];?>" alt="Article Image" width=50 height=50>
+			<img src="<?php echo $article['image'];?>" alt="Article Image" height=50>
 			<span><?php echo $article[ 'uploadDate' ];?> - </span>			
 			<span><?php echo $article[ 'title' ];?> - </span>
 			<button type='button' onclick="removeArticle( <?php echo $article['id'];?> );">Remove</button>
@@ -200,11 +217,18 @@ else if ( isset( $_GET['articlePage' ] ) )
 {
 	if ( $_GET['articlePage'] === "recent" )
 	{
-		echo json_encode( Database::getMostRecentArticle() );
+		$results = Database::getMostRecentArticle();
+		echo json_encode( $results );
 	}
 	else
 	{
-		echo json_encode( Database::getArticleByID( $_GET['articlePage'] ) );
+		$results = Database::getArticleByID( $_GET['articlePage'] );
+		echo json_encode( $results );
 	}
+	exit();
+}
+else if ( isset( $_GET['title'] ) )
+{
+	echo Database::sanitizeData( Config::$NET_LOGIN_BANNER );
 	exit();
 }

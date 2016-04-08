@@ -36,7 +36,7 @@ if ( strpos( $url , "http://" ) === false )
 }
 $url .= "/login.php";
 
-$str = file_get_contents( "./config2.php" );
+$str = file_get_contents( "./copyConfig.txt" );
 $replace = array(
 	"#NAME#" => $name,
 	"#USER#" => $user,
@@ -50,4 +50,4 @@ foreach( $replace as $key=>$value )
 }
 file_put_contents( "./config.php" , $str );
 exit();
-Config::init();
+
