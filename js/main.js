@@ -46,4 +46,31 @@ $( document ).on( "ready" , function()
 	}
 
 	setInterval(nextImg,5000);
+	
+	$(window).resize(function () {
+		resize();
+
+	})
+
+	function resize() {
+		$(".jumb_image img:eq(0)").css({
+			width: '90%'
+		});
+		$(".jumb_image img:eq(0)").css({
+			height: '100%'
+		});
+		var fW = $(".jumb_image img:eq(0)").width();
+		var fH = $(".jumb_image img:eq(0)").height();
+
+		$('.jumb_image img').each(function () {
+			$(this).css({
+				width: fW,
+				height: fH
+			})
+		})
+
+	}
+	resize();
+	
+	
 });
