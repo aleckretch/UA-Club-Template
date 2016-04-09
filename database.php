@@ -42,6 +42,16 @@ class Database
 	}
 
 	/*
+		Setups the database, should only be run from startup.php
+	*/
+	public static function setup()
+	{
+		$conn = self::connect();
+		$sql = file_get_contents( "club.sql" );
+		$conn->exec( $sql );
+	}
+
+	/*
 		Writes the message provided to the error log.
 		If fail is true(by default), also stops more code from running.
 		If the config constant LOG_TO_FILE is false then the message is displayed to the page as html(sanitized).

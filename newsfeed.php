@@ -25,7 +25,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+	<script src="./js/title.js"></script>
 
 	<style>
 		body {
@@ -317,11 +317,12 @@
 		</div>
   			
 			<?php 
+			$article_count = 0;
+			$article_limit = 6;
 			if (empty($articles)) {
 				echo "No articles found.";
 			} else {
 			
-				$article_limit = 6; // 6 articles per page
 				$article_count = count($articles);
 				if ( isset($_GET['page'])) 
 				{

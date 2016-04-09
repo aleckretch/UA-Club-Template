@@ -3,7 +3,10 @@ CREATE DATABASE CLUB
 DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
 USE CLUB;
-
+/*
+COMMENT OUT ABOVE THIS LINE WHEN IN PRODUCTION
+UITS w6 hosting only allows database creation from cpanel
+*/
 /*
 	This holds the netid for the editors of the club page.
 	The username has to be unique.
@@ -82,9 +85,9 @@ INSERT INTO Links( title, link, placement ) VALUES( 'instagram' , '' , 'social' 
 /*
 	Insert blank links for all 3 featured images by default.
 */
-INSERT INTO Links( title, link, placement ) VALUES( 'dots.png' , 'cs.arizona.edu' , 'featured' );
-INSERT INTO Links( title, link, placement ) VALUES( 'A.png' , '' , 'featured' );
-INSERT INTO Links( title, link, placement ) VALUES( 'social-icons.png' , '' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( '' , 'cs.arizona.edu' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( '' , '' , 'featured' );
+INSERT INTO Links( title, link, placement ) VALUES( '' , '' , 'featured' );
 
 /*
 	Insert a blank about body for the club page to have empty about by default.
