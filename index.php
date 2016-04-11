@@ -1,8 +1,12 @@
 <?php
     require_once './database.php';
 
+    // Vars for connecting About section
+
     $aboutArray = Database::getAbout();
     $aboutText = $aboutArray['body'];
+
+    // Vars for connecting Social Media Links
 
     $links = Database::getSocialLinks();
     $facebookLink = $links['facebook'];
@@ -11,6 +15,10 @@
     $youtubeLink = $links['youtube'];
 
     $articles = Database::getAllArticles();
+
+    // Vars for connecting Featured items
+
+    $featuredItems = Database::getLinksByPlacement("featured");
 ?>
 
 <!doctype html>
@@ -301,18 +309,18 @@
 </style>
 <div class="main_content">
 	<div class="jumbotron_area">
-		<div class="jumb_image">
-			<img src="images/Layer-10.png" />
-		</div>
-		<div class="jumb_image">
-			<img src="http://mosaic.arizona.edu/sites/mosaic.arizona.edu/themes/mosaic/images/banner_image01.jpg" />
-		</div>
-		<div class="jumb_image">
-			<img src="http://www.greatvaluecolleges.net/wp-content/uploads/2014/07/university-of-arizona.jpg" />
-		</div>
-		
-		
-		
+           
+        <?php 
+        
+            foreach($featuredItems as $feature) {
+                echo '<div class="jumb_image">' .
+                    '<a href="' . $feature["link"] . '">' .
+                    '<img src="' . $feature["title"] . '"/>' .
+                    '</a>' .
+                    '</div>';
+            }
+        
+        ?>	
 		
 	</div>
 	<div class="bullets">
