@@ -334,9 +334,7 @@
 			<h1>About</h1>
 			<div class="">
 				<div class="col-xs-12 text_box">
-					<div id="aboutTextContent" class="">
-						<?php if($aboutText === "") { echo "There is currently no About section."; } else { echo $aboutText; } ?>
-					</div>
+					<div id="aboutTextContent" class=""><?php if($aboutText === "") { echo "There is currently no About section."; } else { echo $aboutText; } ?></div>
 				</div>
 			</div>
 

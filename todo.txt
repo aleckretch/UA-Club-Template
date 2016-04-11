@@ -2,11 +2,22 @@
 
 (DONE)Links to articles should have their id
 
-(TEST)Fix newlines on article page issue
+(DONE)Dynamically change the title of the site on every page based on the config.php banner constant
+
+(DONE)Fix newlines on article page issue
+
+(DONE)Dynamic images on article.html
+
+(DONE)Finish up startup.php to make setting up on server less of a hassle
+
+(DONE)Show current header,footer links and able to delete them
+
+(DONE)Show current editors and be able to delete them
+
+(???)Success page on adding article...
+	Redirects on being added to showing all articles, should be fine
 
 (TEST)Logout after so long functionality
-
-(TEST)Dynamic images on article.html
 
 (IN PROG./TEST) Need featured items in jumbotron to be dynamic, picture and link based on what's in database
 
@@ -22,14 +33,7 @@ Get all CSS from different pages into one css file
 
 ---------------
 
-Finish up startup.php to make setting up on server less of a hassle
-
-Dynamically change the title of the site on every page based on the config.php banner constant
-
-Show current header,footer links and able to delete them
-
-Show current editors and be able to delete them
+Need to convert BBCode in article text on newsfeed.php so that it shows up correctly
 
 Logout button in admin panel
-
-Success page on adding article...
+	

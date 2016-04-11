@@ -170,11 +170,23 @@ class Database
 	}
 
 	/*
+		Removes the link with the database id provided.
+	*/
+	public static function removeLink( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Links WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
 		Creates a link with the parameters specified.
 	*/
 	public static function createLink( $title, $href, $placement )
 	{
-		$title = self::sanitizeData( $title );
+		$title = self::sanitizeData( trim( $title ) );
 		$args = array( $title, $href, $placement );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Links( title, link, placement ) VALUES( ? , ? , ? )" );
@@ -236,7 +248,7 @@ class Database
 	public static function updateFeatured( $id, $title, $link )
 	{
 		$placement = "featured";
-		$title = Database::sanitizeData( $title );
+		$title = Database::sanitizeData( trim( $title ) );
 		$args = array( $link, $title, $placement, $id );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "UPDATE Links SET link=?,title=? WHERE placement=? AND id=?" );
@@ -258,9 +270,9 @@ class Database
 	*/
 	public static function createArticle( $title, $author, $body, $imageURL )
 	{
-		$title = self::sanitizeData( $title );
-		$author = self::sanitizeData( $author );
-		$body = self::sanitizeData( $body );
+		$title = self::sanitizeData( trim( $title ) );
+		$author = self::sanitizeData( trim( $author ) );
+		$body = self::sanitizeData( trim( $body ) );
 		$args = array( $title, $author, $body, $imageURL );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Articles( title, author, body, uploadDate, image) VALUES( ? , ?, ? , CURDATE(), ? )" );
@@ -332,7 +344,7 @@ class Database
 	public static function createAbout( $body )
 	{
 		$conn = self::connect();
-		$body = self::sanitizeData( $body );
+		$body = self::sanitizeData( trim( $body ) );
 		$args = array( $body );
 		$stmt = $conn->prepare( "INSERT INTO About( body ) VALUES( ? )" );
 		$stmt->execute( $args );		

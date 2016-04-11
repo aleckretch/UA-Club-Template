@@ -17,36 +17,50 @@ if ( isset( $_GET['admin'] ) )
 	{
 	?>
 	<h1>
-		Add Editor
+		Change Editors
 	</h1>
 	<div>
-	<div style='float: left;'>
+	<?php
+		$editors = Database::getAllEditors();
+		foreach( $editors as $editor )
+		{
+			echo "<span>${editor['username']} - <a href='#' onclick=\"removeLink( ${editor['id']},'editor', this.parentNode ); return false;\"  title='Remove'>X</a></span><br>";
+		}
+	?>
+
+	<h1>
+		Add Editor
+	</h1>
 	<form method='post' action='form.php?editor=yes'>
 		Editor NetID:<br><input type='text' name='user' required><br>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Add'>
 	</form>
-	</div>
-	<div style='float: right;'>
-	<?php
-		//TODO: Clean up the styling of this, add a background...
-		$editors = Database::getAllEditors();
-		foreach( $editors as $editor )
-		{
-			//TODO: Add onclick to send ajax request
-			echo "<span>${editor['username']} - <a href='#' title='Remove'>X</a></span>";
-		}
-	?>
-	</div>
-	<div style='clear: both;'>
-	</div>
+
 	</div>
 	<?php
 	}
 	else if ( $admin === "top" || $admin === "bottom" )
 	{
 		//link form to add links to header
-		//TODO: Wait until styling for showing/removing editors is done then use here
+		$links = Database::getLinksByPlacement( $admin );
+	?>
+	<h1>
+		Change <?php echo ucfirst( $admin );?> Links
+	</h1>
+	<div>
+	<?php
+		foreach( $links as $link )
+		{
+			echo "<span>";
+			echo "<a href='${link['link']}'>${link['title']}</a> - ";
+			echo "<a href='#' onclick=\"removeLink( ${link['id']},'link', this.parentNode ); return false;\" title='Remove'>X</a>";
+			echo "</span><br>";
+		}
+		if ( count( $links ) == 0 )
+		{
+			echo "There are currently no links<br>";
+		}
 	?>
 	<h1>
 		Add Link To <?php echo ucfirst( $admin );?>
@@ -57,6 +71,7 @@ if ( isset( $_GET['admin'] ) )
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Add'>
 	</form>
+	</div>
 	<?php
 	}
 	else if ( $admin === "social" )
@@ -189,7 +204,7 @@ if ( isset( $_GET['admin'] ) )
 	}
 	exit();
 }
-else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
+else if ( isset( $_GET['removed'] ) )
 {
 	if ( !Session::userLoggedIn() )
 	{
@@ -205,12 +220,30 @@ else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
 
 	if ( !isset( $_POST[ 'remove'] ) )
 	{
-		echo "Missing article id";
+		echo "Missing id";
 		exit();
 	}
 
-	Database::removeArticle( $_POST[ 'remove'] );
-	echo "true";
+	if ( $_GET['removed'] === "article" )
+	{
+		Database::removeArticle( $_POST[ 'remove'] );
+		echo "true";
+		exit();
+	}
+	else if ( $_GET['removed'] === "editor" )
+	{
+		Database::removeEditor( $_POST['remove' ] );
+		echo "true";
+		exit();		
+	}
+	else if ( $_GET['removed'] === "link" )
+	{
+		Database::removeLink( $_POST['remove' ] );
+		echo "true";
+		exit();	
+	}
+
+	echo "Not a request";
 	exit();
 }
 else if ( isset( $_GET['articlePage' ] ) )
