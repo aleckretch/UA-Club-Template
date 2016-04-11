@@ -8,16 +8,17 @@
 
 (TEST)Dynamic images on article.html
 
+(IN PROG./TEST) Need featured items in jumbotron to be dynamic, picture and link based on what's in database
+
+(IN PROG./TEST) Links need to be dynamic in header and footer
+			Needs to work on all pages
+
+(IN PROG./TEST) Make social media links show up dynamically on all pages, not just index.php
+
 Other
 -=-----
+
 Get all CSS from different pages into one css file
-
-Links need to be dynamic in header and footer
-	Needs to work on all pages
-
-Make social media links show up dynamically on all pages, not just index.php
-
-Need featured items in jumbotron to be dynamic, picture and link based on what's in database
 
 ---------------
 
