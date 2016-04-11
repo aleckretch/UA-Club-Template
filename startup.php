@@ -36,7 +36,7 @@ if ( !fromCommandLine() )
 function readValue( $prompt = '' )
 {
     echo $prompt;
-    return rtrim( fgets( STDIN ), "\n" );
+    return addslashes( rtrim( fgets( STDIN ), "\n" ) );
 }
 
 echo "Hello, welcome to the club setup script\n";
@@ -51,8 +51,15 @@ if ( strpos( $url , "http://" ) === false )
 {
 	$url = "http://${url}";
 }
-//TODO: what if the user has a / at the very end already
-$url .= "/login.php";
+
+if ( $url[ strlen( $url ) - 1 ] === "/" )
+{
+	$url .= "login.php";
+}
+else
+{
+	$url .= "/login.php";
+}
 
 //For each placeholder in copyConfig.txt, replace placeholder with the actual text
 $str = file_get_contents( "./copyConfig.txt" );

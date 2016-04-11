@@ -46,4 +46,14 @@ $( document ).on( "ready" , function()
 	}
 
 	setInterval(nextImg,5000);
+
+	//Go through all the article previews on the newsfeed and convert BBCode to HTML for each
+	$( "div.newsbox p" ).each( function( index, element ) {
+		var content = XBBCODE.process({
+			    text: $( element ).html(),
+			    removeMisalignedTags: true,
+			    addInLineBreaks: true
+			});
+		$( element ).html( content.html );
+	});
 });

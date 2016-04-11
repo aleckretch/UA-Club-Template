@@ -14,10 +14,14 @@
 
 (DONE)Show current editors and be able to delete them
 
+(DONE)Logout button in admin panel
+
+(DONE)Need to convert BBCode in article text on newsfeed.php so that it shows up correctly
+
+(DONE)Logout after so long functionality
+
 (???)Success page on adding article...
 	Redirects on being added to showing all articles, should be fine
-
-(TEST)Logout after so long functionality
 
 (IN PROG./TEST) Need featured items in jumbotron to be dynamic, picture and link based on what's in database
 
@@ -28,12 +32,13 @@
 
 Other
 -=-----
+Add Search functionality to every page using AJAX
+	Should search the articles by title,body for the search term
 
 Get all CSS from different pages into one css file
 
----------------
+------------
 
-Need to convert BBCode in article text on newsfeed.php so that it shows up correctly
+Need to convert BBCode in article text on index.php so that it shows up correctly
 
-Logout button in admin panel
-	
+

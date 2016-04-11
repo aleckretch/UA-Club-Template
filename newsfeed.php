@@ -22,10 +22,13 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
 	<script src="js/jquery-2.1.4.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/xbbcode.css">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="./js/title.js"></script>
+	<script src="js/xbbcode.js"></script>
+	<script src="./js/main.js"></script>
 
 	<style>
 		body {
