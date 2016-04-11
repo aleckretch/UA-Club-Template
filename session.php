@@ -27,7 +27,7 @@ class Session
 		{
 			return false;
 		}
-		logoutUser();
+		Session::logoutUser();
 		return true;
 	}
 
