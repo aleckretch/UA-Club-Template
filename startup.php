@@ -62,7 +62,7 @@ else
 }
 
 //For each placeholder in copyConfig.txt, replace placeholder with the actual text
-$str = file_get_contents( "./copyConfig.txt" );
+$str = file_get_contents( "./copyConfig.php" );
 $replace = array(
 	"#NAME#" => $name,
 	"#USER#" => $user,

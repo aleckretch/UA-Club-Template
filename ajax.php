@@ -24,7 +24,8 @@ if ( isset( $_GET['admin'] ) )
 		$editors = Database::getAllEditors();
 		foreach( $editors as $editor )
 		{
-			echo "<span>${editor['username']} - <a href='#' onclick=\"removeLink( ${editor['id']},'editor', this.parentNode ); return false;\"  title='Remove'>X</a></span><br>";
+			$class = ( Session::user() === $editor[ 'username' ] ? "disabled" : "" );
+			echo "<span>${editor['username']} - <a href='#' class='${class}' onclick=\"removeLink( ${editor['id']},'editor', this.parentNode ); return false;\"  title='Remove'>X</a></span><br>";
 		}
 	?>
 
@@ -232,6 +233,12 @@ else if ( isset( $_GET['removed'] ) )
 	}
 	else if ( $_GET['removed'] === "editor" )
 	{
+		$editor = Database::getEditorByID( $_POST['remove'] );
+		if ( !isset( $editor[ "username " ] ) || $editor[ "username" ] === Session::user() )
+		{
+			echo "Cannot remove yourself as an editor!";
+			exit();
+		}
 		Database::removeEditor( $_POST['remove' ] );
 		echo "true";
 		exit();		

@@ -170,6 +170,18 @@ class Database
 	}
 
 	/*
+		Returns the editor row for the database id provided if it exists.
+	*/
+	public static function getEditorByID( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Editors WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->fetch();
+	}
+
+	/*
 		Removes the link with the database id provided.
 	*/
 	public static function removeLink( $id )
