@@ -1,14 +1,19 @@
 <?php
     require_once './database.php';
 
-    $aboutArray = Database::getAbout();
-    $aboutText = $aboutArray['body'];
+    // Vars for connecting Social Media Links
 
     $links = Database::getSocialLinks();
     $facebookLink = $links['facebook'];
     $twitterLink = $links['twitter'];
     $instagramLink = $links['instagram'];
     $youtubeLink = $links['youtube'];
+
+    // Vars for connecting header links
+    $topLinks = Database::getLinksByPlacement("top");
+
+    // Vars for connecting footer links
+    $bottomLinks = Database::getLinksByPlacement("bottom");
 
     $articles = Database::getAllArticles();
 ?>
@@ -196,12 +201,15 @@
 	
 	
 	<div class="nav row">
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="newsfeed.php">Events</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contact Us</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>
-		
-			
+			<?php
+        
+            foreach($topLinks as $topLink) {
+                echo '<div class="nav_cel col-sm-3 col-xs-6"><a href="' .
+                    $topLink["link"] . 
+                    '">' . $topLink["title"] . '</a></div>';
+            }    
+        
+        ?>
 		</div>
 <style>
 	.main_content{
@@ -346,7 +354,7 @@
 				foreach ($current_articles as $article) {
 				?>
 				<div class="newsbox">
-					<h1><a href="article.html?id=<?php echo $article['id'];?>"><?php echo $article['title'];?></a></h1>
+					<h1><a href="article.php?id=<?php echo $article['id'];?>"><?php echo $article['title'];?></a></h1>
 					<h2> Posted: <?php echo $article['uploadDate'];?> </h2>
 					<p> <?php  $articleBody = $article['body'];
 					if(strlen($articleBody) > 356) {
@@ -397,18 +405,36 @@
 	<div class="footer">
 		<div class="row">
 			<div class="col col-sm-8  text-center">
-				<a href="#">About</a> - 
-				<a href="newsfeed.php">Contact</a> - 
-				<a href="#">Hours</a> -
-				<a href="#">Resource</a> -
-				<a href="#">Application</a>
-				
+				<?php 
+                    $i = 0;
+                    foreach($bottomLinks as $bottomLink) {
+                        // if last item in the array, do not add  ' - ' to end else include it
+                        if($i === sizeof($bottomLinks) - 1) {
+                            echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a>';
+                        } else {
+                        echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a> - ';
+                        }
+                        $i++;
+                    }
+                ?>
 			</div>
 			<div class="col col-sm-4 text-center" >
-				<a href="" style="color:black"><i class="fa fa-facebook-official"></i></a>
-				<a href="" style="color:black"><i class="fa fa-instagram"></i></a>
-				<a href="" style="color:black"><i class="fa fa-youtube-play"></i></a>
-				<a href="" style="color:black"><i class="fa fa-twitter-square"></i></a>
+                <?php
+                
+                    if($facebookLink !== "") {
+                        echo '<a href="' . $facebookLink . '" style="color:black"><i class="fa fa-facebook-official"></i></a>';
+                    }
+                    if($instagramLink !== "") {
+                        echo '<a href="' . $instagramLink . '" style="color:black"><i class="fa fa-instagram"></i></a>';
+                    }
+                    if($youtubeLink !== "") {
+                        echo '<a href="' . $youtubeLink . '" style="color:black"><i class="fa fa-youtube-play"></i></a>';
+                    }
+                    if($twitterLink !== "") {
+                        echo '<a href="' . $twitterLink . '" style="color:black"><i class="fa fa-twitter-square"></i></a>';
+                    }
+                
+                ?>
 			</div>
 		</div>
 		<br>
