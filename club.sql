@@ -113,6 +113,15 @@ INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing'
 INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 11' , CURDATE(), 'images/A.png' );
 INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 12' , CURDATE(), 'images/A.png' );
 INSERT INTO Articles( title, author, body, uploadDate, image ) VALUES( 'Testing' , 'Dilan' , 'Testing body 13' , CURDATE(), 'images/A.png' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Home' , 'index.php' , 'top' );
+INSERT INTO Links( title, link, placement ) VALUES( 'About' , '#' , 'top' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Events' , 'newsfeed.php' , 'top' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Contact Us' , '#' , 'top' );
+INSERT INTO Links( title, link, placement ) VALUES( 'About' , '#' , 'bottom' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Contact' , '#' , 'bottom' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Hours' , '#' , 'bottom' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Resource' , '#' , 'bottom' );
+INSERT INTO Links( title, link, placement ) VALUES( 'Application' , '#' , 'bottom' );
 
 
 

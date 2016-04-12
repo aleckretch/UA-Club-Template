@@ -19,6 +19,13 @@
     // Vars for connecting Featured items
 
     $featuredItems = Database::getLinksByPlacement("featured");
+
+    // Vars for connecting header links
+    $topLinks = Database::getLinksByPlacement("top");
+
+    // Vars for connecting footer links
+    $bottomLinks = Database::getLinksByPlacement("bottom");
+
 ?>
 
 <!doctype html>
@@ -251,13 +258,18 @@
 	
 	
 	<div class="nav row">
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="newsfeed.php">Events</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contact Us</a></div>
-			<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>
+        
+        <?php
+        
+            foreach($topLinks as $topLink) {
+                echo '<div class="nav_cel col-sm-3 col-xs-6"><a href="' .
+                    $topLink["link"] . 
+                    '">' . $topLink["title"] . '</a></div>';
+            }    
+        
+        ?>
 		
-			
-		</div>
+    </div>
 <style>
 	.main_content{
 		position: relative;
@@ -427,11 +439,19 @@
 	<div class="footer">
 		<div class="row ">
 			<div class="col col-sm-8  text-center links">
-				<a href="#">About</a> - 
-				<a href="#">Contact</a> - 
-				<a href="#">Hours</a> -
-				<a href="#">Resource</a> -
-				<a href="#">Application</a>
+                
+                <?php 
+                    $i = 0;
+                    foreach($bottomLinks as $bottomLink) {
+                        // if last item in the array, do not add  ' - ' to end else include it
+                        if($i === sizeof($bottomLinks) - 1) {
+                            echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a>';
+                        } else {
+                        echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a> - ';
+                        }
+                        $i++;
+                    }
+                ?>
 				
 			</div>
 			<div class="col col-sm-4 text-center" >

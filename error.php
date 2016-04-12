@@ -1,4 +1,6 @@
 <?php
+    require_once './database.php';
+
 $error = "";
 if ( isset( $_GET[ 'error'] ) )
 {
