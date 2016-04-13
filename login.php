@@ -73,7 +73,7 @@ else if ( Session::userLoggedIn() )
 	{
 		Session::logoutUser();
 	}
-	header( "Location: admin.html" );
+	header( "Location: admin.php" );
 	exit();
 }
 else

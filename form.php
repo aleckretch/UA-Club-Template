@@ -100,7 +100,7 @@ if ( isset( $_GET['editor'] ) )
 
 	//create the editor and redirect to the admin panel
 	Database::createEditor( $_POST['user'] );
-	header( "Location: admin.html?current=editor" );
+	header( "Location: admin.php?current=editor" );
 	exit();
 
 }
@@ -126,7 +126,7 @@ else if ( isset( $_GET['social'] ) )
 		Database::updateSocialLink( $key, $_POST[ $key ] );
 	}
 
-	header( "Location: admin.html?current=social" );
+	header( "Location: admin.php?current=social" );
 	exit();
 }
 else if ( isset( $_GET['link'] ) && ( $_GET['link'] === "top" || $_GET['link'] === "bottom" ) )
@@ -145,7 +145,7 @@ else if ( isset( $_GET['link'] ) && ( $_GET['link'] === "top" || $_GET['link'] =
 		exit();	
 	}
 	Database::createLink( $_POST['title'] , $_POST['href'] , $_GET['link'] );
-	header( "Location: admin.html?current=${_GET['link']}" );
+	header( "Location: admin.php?current=${_GET['link']}" );
 	exit();
 }
 else if ( isset( $_GET['logo'] ) )
@@ -163,7 +163,7 @@ else if ( isset( $_GET['logo'] ) )
 		Database::logError( "Logo file not overwritten" , false );
 	}
 
-	header( "Location: admin.html?current=logo" );
+	header( "Location: admin.php?current=logo" );
 	exit();
 }
 else if ( isset( $_GET['about'] ) )
@@ -183,7 +183,7 @@ else if ( isset( $_GET['about'] ) )
 	}	
 
 	Database::createAbout( $_POST['text'] );
-	header( "Location: admin.html?current=about" );
+	header( "Location: admin.php?current=about" );
 	exit();
 }
 else if ( isset( $_GET['featured' ] ) )
@@ -208,7 +208,7 @@ else if ( isset( $_GET['featured' ] ) )
 		}
 	}
 
-	header( "Location: admin.html?current=featured" );
+	header( "Location: admin.php?current=featured" );
 	exit();
 }
 else if ( isset( $_GET['article'] ) )
@@ -234,12 +234,12 @@ else if ( isset( $_GET['article'] ) )
 
 	$filePath = handleUpload( "file" , "./uploads" , false );
 	Database::createArticle( $_POST['title'] , $_POST['author'] , $_POST['text'] , $filePath );
-	header( "Location: admin.html?current=articles" );
+	header( "Location: admin.php?current=articles" );
 	exit();
 }
 else
 {
-	header( "Location: admin.html" );
+	header( "Location: admin.php" );
 	exit();
 }
 

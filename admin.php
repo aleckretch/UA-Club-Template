@@ -1,3 +1,11 @@
+<?php
+    require_once './database.php';
+
+    // Vars for connecting header links
+    $topLinks = Database::getLinksByPlacement("top");
+
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -167,10 +175,15 @@
 
 
 <div class="nav row">
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a></div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a></div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>		
+		<?php
+        
+            foreach($topLinks as $topLink) {
+                echo '<div class="nav_cel col-sm-3 col-xs-6"><a href="' .
+                    $topLink["link"] . 
+                    '">' . $topLink["title"] . '</a></div>';
+            }    
+        
+        ?>	
 </div>
 <style>
 	.main_content{
