@@ -38,6 +38,6 @@ Add Search functionality to every page using AJAX
 
 Get all CSS from different pages into one css file
 
-
+Search box does not appear on admin.php and error.php, probably missing some css. Should be fixed when all the css goes into main.css
 
 
