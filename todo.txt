@@ -20,15 +20,15 @@
 
 (DONE)Logout after so long functionality
 
-(???)Success page on adding article...
-	Redirects on being added to showing all articles, should be fine
+(DONE) Need featured items in jumbotron to be dynamic, picture and link based on what's in database
 
-(IN PROG./TEST) Need featured items in jumbotron to be dynamic, picture and link based on what's in database
-
-(IN PROG./TEST) Links need to be dynamic in header and footer
+(DONE) Links need to be dynamic in header and footer
 			Needs to work on all pages
 
-(IN PROG./TEST) Make social media links show up dynamically on all pages, not just index.php
+(DONE) Make social media links show up dynamically on all pages, not just index.php
+
+(???)Success page on adding article...
+	Redirects on being added to showing all articles, should be fine
 
 Other
 -=-----
