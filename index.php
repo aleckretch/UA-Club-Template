@@ -1,30 +1,16 @@
 <?php
-    require_once './database.php';
+require_once './banner.php';
 
     // Vars for connecting About section
 
     $aboutArray = Database::getAbout();
     $aboutText = $aboutArray['body'];
 
-    // Vars for connecting Social Media Links
-
-    $links = Database::getSocialLinks();
-    $facebookLink = $links['facebook'];
-    $twitterLink = $links['twitter'];
-    $instagramLink = $links['instagram'];
-    $youtubeLink = $links['youtube'];
-
     $articles = Database::getAllArticles();
 
     // Vars for connecting Featured items
 
     $featuredItems = Database::getLinksByPlacement("featured");
-
-    // Vars for connecting header links
-    $topLinks = Database::getLinksByPlacement("top");
-
-    // Vars for connecting footer links
-    $bottomLinks = Database::getLinksByPlacement("bottom");
 
 ?>
 
@@ -258,18 +244,8 @@
 	
 	
 	<div class="nav row">
-        
-        <?php
-        
-            foreach($topLinks as $topLink) {
-                echo '<div class="nav_cel col-sm-3 col-xs-6"><a href="' .
-                    $topLink["link"] . 
-                    '">' . $topLink["title"] . '</a></div>';
-            }    
-        
-        ?>
-		
-    </div>
+		<?php outputHeaderLinks();?>
+	</div>
 <style>
 	.main_content{
 		position: relative;
@@ -355,53 +331,12 @@
 		</div>
 
 		<div class="upcoming col col-xs-12 col-sm-6">
-					<h1>Latest News</h1>
-            
-            <div class="">
-                <div class=" text_box col-xs-12">
-            <?php 
-                $articleBody = $articles['0']['body'];
-                    
-                if(empty($articles)) {
-                    echo "<p> There are no news to display";
-                } else {
-                    if(strlen($articleBody) > 356) {
-                        $articleBody = substr($articleBody, 0 ,355);
-                    }
-                    echo "<a href='article.php?id=" . $articles['0']['id'] . 
-                        "'><p class='title'>" . $articles['0']['title'] . "</p>";
-                    echo "<p>" . $articleBody . "</p></a>";
-                }
-            
-            ?>
-                </div>
-            </div>
-            
-            
-            <?php 
-                
-                if(isset($articles[1])) {
-                    $articleBody = $articles['1']['body'];
-                    
-                    if(strlen($articleBody) > 356) {
-                        $articleBody = substr($articleBody, 0 ,355);
-                    }
-                    
-                    echo '<div class="">
-                <div class=" text_box col-xs-12">';
-                    echo "<a href='article.php?id=" . $articles['1']['id'] . 
-                        "'><p class='title'>" . $articles['1']['title'] . "</p>";
-                    echo "<p>" . $articleBody . "</p></a>";
-                    echo '</div>
-            </div>';
-                }
-            
-            ?>
-
+		<h1>Latest News</h1>
+		<?php outputArticleText( $articles, 0 ); ?>
+            	<?php outputArticleText( $articles, 1 ); ?>
 		</div>
+	
 	</div>
-	
-	
 	
 	
 	<div class="sub_logo">
@@ -439,42 +374,12 @@
 	</style>
 
 	<div class="footer">
-		<div class="row ">
-			<div class="col col-sm-8  text-center links">
-                
-                <?php 
-                    $i = 0;
-                    foreach($bottomLinks as $bottomLink) {
-                        // if last item in the array, do not add  ' - ' to end else include it
-                        if($i === sizeof($bottomLinks) - 1) {
-                            echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a>';
-                        } else {
-                        echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a> - ';
-                        }
-                        $i++;
-                    }
-                ?>
-				
+		<div class="row">
+			<div class="col col-sm-8  text-center">
+				<?php outputFooterLinks(); ?>
 			</div>
 			<div class="col col-sm-4 text-center" >
-
-		<?php
-                
-                    if($facebookLink !== "") {
-                        echo '<a href="' . $facebookLink . '" style="color:black"><i class="fa fa-facebook-official"></i></a>';
-                    }
-                    if($instagramLink !== "") {
-                        echo '<a href="' . $instagramLink . '" style="color:black"><i class="fa fa-instagram"></i></a>';
-                    }
-                    if($youtubeLink !== "") {
-                        echo '<a href="' . $youtubeLink . '" style="color:black"><i class="fa fa-youtube-play"></i></a>';
-                    }
-                    if($twitterLink !== "") {
-                        echo '<a href="' . $twitterLink . '" style="color:black"><i class="fa fa-twitter-square"></i></a>';
-                    }
-                
-                ?>
-                
+				<?php outputSocialLinks(); ?>
 			</div>
 		</div>
 		<br>

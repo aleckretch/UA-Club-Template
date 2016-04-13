@@ -1,20 +1,5 @@
 <?php
-    require_once './database.php';
-
-    // Vars for connecting Social Media Links
-
-    $links = Database::getSocialLinks();
-    $facebookLink = $links['facebook'];
-    $twitterLink = $links['twitter'];
-    $instagramLink = $links['instagram'];
-    $youtubeLink = $links['youtube'];
-
-    // Vars for connecting header links
-    $topLinks = Database::getLinksByPlacement("top");
-
-    // Vars for connecting footer links
-    $bottomLinks = Database::getLinksByPlacement("bottom");
-
+    require_once './banner.php';
     $articles = Database::getAllArticles();
 ?>
 <!doctype html>
@@ -201,16 +186,8 @@
 	
 	
 	<div class="nav row">
-			<?php
-        
-            foreach($topLinks as $topLink) {
-                echo '<div class="nav_cel col-sm-3 col-xs-6"><a href="' .
-                    $topLink["link"] . 
-                    '">' . $topLink["title"] . '</a></div>';
-            }    
-        
-        ?>
-		</div>
+		<?php outputHeaderLinks();?>
+	</div>
 <style>
 	.main_content{
 		position: relative;
@@ -405,36 +382,10 @@
 	<div class="footer">
 		<div class="row">
 			<div class="col col-sm-8  text-center">
-				<?php 
-                    $i = 0;
-                    foreach($bottomLinks as $bottomLink) {
-                        // if last item in the array, do not add  ' - ' to end else include it
-                        if($i === sizeof($bottomLinks) - 1) {
-                            echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a>';
-                        } else {
-                        echo '<a href="' . $bottomLink["link"] . '">' . $bottomLink["title"] . '</a> - ';
-                        }
-                        $i++;
-                    }
-                ?>
+				<?php outputFooterLinks(); ?>
 			</div>
 			<div class="col col-sm-4 text-center" >
-                <?php
-                
-                    if($facebookLink !== "") {
-                        echo '<a href="' . $facebookLink . '" style="color:black"><i class="fa fa-facebook-official"></i></a>';
-                    }
-                    if($instagramLink !== "") {
-                        echo '<a href="' . $instagramLink . '" style="color:black"><i class="fa fa-instagram"></i></a>';
-                    }
-                    if($youtubeLink !== "") {
-                        echo '<a href="' . $youtubeLink . '" style="color:black"><i class="fa fa-youtube-play"></i></a>';
-                    }
-                    if($twitterLink !== "") {
-                        echo '<a href="' . $twitterLink . '" style="color:black"><i class="fa fa-twitter-square"></i></a>';
-                    }
-                
-                ?>
+				<?php outputSocialLinks(); ?>
 			</div>
 		</div>
 		<br>
@@ -446,43 +397,4 @@
 
 	</footer>
 </body>
-<script>
-	$('.ua_header .pull-right').on('click',function(){
-		$('.pull-right').toggleClass('expand');
-		$('.search_input').focus();
-	})
-	
-	var index = 0;    //jumbtorm slide image index 
-	
-	$('.bullet').on('click',function(){
-			var selected_index = $(this).index();
-			var diff =  selected_index - index  ;
-			$('.jumbotron_area .jumb_image').animate({
-				left: '-='+100.5*diff +'%',
-				
-			})
-			index = selected_index
-		
-	})
-	
-	function nextImg(){
-		var diff = 1;
-		console.log($('.jumbotron_area .jumb_image').length)
-		if (index >= $('.jumbotron_area .jumb_image').length -1 )
-			{
-			diff = -1 * ($('.jumbotron_area .jumb_image').length-1);
-			index = 0;	
-			}
-		else{
-				index+=1;
-		}
-		$('.jumbotron_area .jumb_image').animate({
-				left: '-='+100.5*diff +'%',	
-			})
-	}
-	
-	setInterval(nextImg,5000)
-	
-	
-</script>
 </html>

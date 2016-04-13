@@ -269,6 +269,20 @@ class Database
 	}
 
 	/*
+		Returns a list of articles that have the search term provided in their title or body.
+		Returns an empty array if there are no articles with the search term provided.
+	*/
+	public static function searchArticles( $searchTerm )
+	{
+		$searchTerm = Database::sanitizeData( $searchTerm );
+		$args = array( $searchTerm . "%" , "%" . $searchTerm . "%");
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles WHERE title LIKE ? OR body LIKE ? ORDER BY uploadDate DESC,id DESC" ); 
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
+
+	/*
 		Returns an array of the featured links for the club page.
 	*/
 	public static function getFeatured()

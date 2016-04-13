@@ -27,18 +27,17 @@
 
 (DONE) Make social media links show up dynamically on all pages, not just index.php
 
+(DONE)Need to convert BBCode in article text on index.php so that it shows up correctly
+
 (???)Success page on adding article...
 	Redirects on being added to showing all articles, should be fine
 
-Other
--=-----
 Add Search functionality to every page using AJAX
-	Should search the articles by title,body for the search term
+	Have results returned by ajax.php using get request, just need to plug this in to the javascript and display the results
+	Send a request to ajax.php with search=<searchTerm> replacing searchTerm with the actual input of the user
 
 Get all CSS from different pages into one css file
 
-------------
 
-Need to convert BBCode in article text on index.php so that it shows up correctly
 
 
