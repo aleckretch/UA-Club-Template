@@ -368,8 +368,9 @@
                     if(strlen($articleBody) > 356) {
                         $articleBody = substr($articleBody, 0 ,355);
                     }
-                    echo "<p class='title'>" . $articles['0']['title'];
-                    echo "<p>" . $articleBody;
+                    echo "<a href='article.php?id=" . $articles['0']['id'] . 
+                        "'><p class='title'>" . $articles['0']['title'] . "</p>";
+                    echo "<p>" . $articleBody . "</p></a>";
                 }
             
             ?>
@@ -388,8 +389,9 @@
                     
                     echo '<div class="">
                 <div class=" text_box col-xs-12">';
-                    echo "<p class='title'>" . $articles['1']['title'];
-                    echo "<p>" . $articleBody;
+                    echo "<a href='article.php?id=" . $articles['1']['id'] . 
+                        "'><p class='title'>" . $articles['1']['title'] . "</p>";
+                    echo "<p>" . $articleBody . "</p></a>";
                     echo '</div>
             </div>';
                 }
