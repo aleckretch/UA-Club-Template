@@ -119,19 +119,4 @@
 
 	</footer>
 </body>
-
-<script>
-	$(document).ready(function(){
-		$('#search_input').keypress(function(e) {
-			if(e.which == 13){
-				var keywords = $('#search_input').val();
-				if (keywords == ""){
-					return;
-				}
-				window.location.href = "newsfeed.php?search=" + keywords;
-			}
-				
-		});
-	});
-</script>
 </html>
