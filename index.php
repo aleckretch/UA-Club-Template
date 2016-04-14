@@ -250,6 +250,17 @@ require_once './banner.php';
 	.main_content{
 		position: relative;
 	}
+	
+	.contentpage{
+	    background-color: white;
+
+ 	    margin: 0 3%;
+
+ 	    max-height: 480px;
+
+ 	    padding: 1%;
+	}
+	
 	.bg_img {
 		position: absolute;
 		width:100%;
@@ -281,6 +292,9 @@ require_once './banner.php';
 		
 	}
 	
+	.space{
+		padding-botom:90px;
+	}
 	.bullet{
 		display: inline-block;
 		width:20px;
@@ -316,7 +330,8 @@ require_once './banner.php';
 			<a class="bullet"></a>
 			<a class="bullet"></a>
 		</div>
-
+	
+	<div class="contentpage">
 	<div class="content row" style="padding-bottom:80px" >
 		<div class="about col col-xs-12 col-sm-6">
 			<h1>About</h1>
@@ -335,7 +350,7 @@ require_once './banner.php';
 		<?php outputArticleText( $articles, 0 ); ?>
             	<?php outputArticleText( $articles, 1 ); ?>
 		</div>
-	
+	</div>
 	</div>
 	
 	
@@ -349,8 +364,9 @@ require_once './banner.php';
 	
 	<img class="bg_img" src="images/Layer-1.png" />
 	
+	<div class="space">
 	</div>
-
+	</div>
 
 	
 	
