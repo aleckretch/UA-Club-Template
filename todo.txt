@@ -32,12 +32,10 @@
 (???)Success page on adding article...
 	Redirects on being added to showing all articles, should be fine
 
-Add Search functionality to every page using AJAX
-	Have results returned by ajax.php using get request, just need to plug this in to the javascript and display the results
-	Send a request to ajax.php with search=<searchTerm> replacing searchTerm with the actual input of the user
+(DONE)Add Search functionality to every page
 
-Get all CSS from different pages into one css file
+(DONE)Get all CSS from different pages into one css file
 
-Search box does not appear on admin.php and error.php, probably missing some css. Should be fixed when all the css goes into main.css
+(DONE)Search box does not appear on admin.php and error.php, probably missing some css. Should be fixed when all the css goes into main.css
 
 

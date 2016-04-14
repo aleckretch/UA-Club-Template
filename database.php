@@ -345,6 +345,8 @@ class Database
 	*/
 	public static function getArticlesForNewsfeed($offset, $article_limit)
 	{
+		$article_limit = intval( $article_limit );
+		$offset = intval( $offset );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY uploadDate DESC,id DESC LIMIT $offset, $article_limit");
 		$stmt->execute();
@@ -356,6 +358,8 @@ class Database
 	*/
 	public static function getArticlesForSearch($offset, $article_limit, $searchTerm)
 	{
+		$article_limit = intval( $article_limit );
+		$offset = intval( $offset );
 		$searchTerm = Database::sanitizeData( $searchTerm );
 		$args = array( $searchTerm . "%" , "%" . $searchTerm . "%");
 		$conn = self::connect();

@@ -131,9 +131,9 @@
             <ul>
             	<?php
             	$maxPages = ceil($article_count / $article_limit);
-            	$search = "&search=";
+            	$search = "";
             	if (isset($_GET['search'])) {
-            		$search .= $_GET['search'];
+            		$search = "&search=${_GET['search']}";
             	}
             	if ($page > 1){
             		echo "<li><a href='newsfeed.php?page=1",$search,"'><<</a></li>";
