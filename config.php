@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 	This class holds configuration values that are constant. Namely the database credentials.
 */
@@ -30,7 +30,7 @@ class Config
 
 		self::$DB_HOST = "localhost";
 
-		self::$NET_LOGIN_BANNER = "Club Website";
+		self::$NET_LOGIN_BANNER = "Club Template";
 
 		self::$NET_LOGIN_URL = "http://localhost/UA-Club-Template/login.php";
 

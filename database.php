@@ -42,6 +42,16 @@ class Database
 	}
 
 	/*
+		Setups the database, should only be run from startup.php
+	*/
+	public static function setup()
+	{
+		$conn = self::connect();
+		$sql = file_get_contents( "club.sql" );
+		$conn->exec( $sql );
+	}
+
+	/*
 		Writes the message provided to the error log.
 		If fail is true(by default), also stops more code from running.
 		If the config constant LOG_TO_FILE is false then the message is displayed to the page as html(sanitized).
@@ -137,11 +147,58 @@ class Database
 	}
 
 	/*
+		Returns an array of all the editors for the club site.
+	*/
+	public static function getAllEditors()
+	{
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Editors" );
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	/*
+		Removes the editor with the database id provided.
+	*/
+	public static function removeEditor( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Editors WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
+		Returns the editor row for the database id provided if it exists.
+	*/
+	public static function getEditorByID( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Editors WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->fetch();
+	}
+
+	/*
+		Removes the link with the database id provided.
+	*/
+	public static function removeLink( $id )
+	{
+		$args = array( $id );
+		$conn = self::connect();
+		$stmt = $conn->prepare( "DELETE FROM Links WHERE id=?" );
+		$stmt->execute( $args );
+		return $stmt->errorCode();
+	}
+
+	/*
 		Creates a link with the parameters specified.
 	*/
 	public static function createLink( $title, $href, $placement )
 	{
-		$title = self::sanitizeData( $title );
+		$title = self::sanitizeData( trim( $title ) );
 		$args = array( $title, $href, $placement );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Links( title, link, placement ) VALUES( ? , ? , ? )" );
@@ -203,12 +260,26 @@ class Database
 	public static function updateFeatured( $id, $title, $link )
 	{
 		$placement = "featured";
-		$title = Database::sanitizeData( $title );
+		$title = Database::sanitizeData( trim( $title ) );
 		$args = array( $link, $title, $placement, $id );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "UPDATE Links SET link=?,title=? WHERE placement=? AND id=?" );
 		$stmt->execute( $args );
 		return TRUE;
+	}
+
+	/*
+		Returns a list of articles that have the search term provided in their title or body.
+		Returns an empty array if there are no articles with the search term provided.
+	*/
+	public static function searchArticles( $searchTerm )
+	{
+		$searchTerm = Database::sanitizeData( $searchTerm );
+		$args = array( $searchTerm . "%" , "%" . $searchTerm . "%");
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles WHERE title LIKE ? OR body LIKE ? ORDER BY uploadDate DESC,id DESC" ); 
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
 	}
 
 	/*
@@ -225,9 +296,9 @@ class Database
 	*/
 	public static function createArticle( $title, $author, $body, $imageURL )
 	{
-		$title = self::sanitizeData( $title );
-		$author = self::sanitizeData( $author );
-		$body = self::sanitizeData( $body );
+		$title = self::sanitizeData( trim( $title ) );
+		$author = self::sanitizeData( trim( $author ) );
+		$body = self::sanitizeData( trim( $body ) );
 		$args = array( $title, $author, $body, $imageURL );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "INSERT INTO Articles( title, author, body, uploadDate, image) VALUES( ? , ?, ? , CURDATE(), ? )" );
@@ -299,7 +370,7 @@ class Database
 	public static function createAbout( $body )
 	{
 		$conn = self::connect();
-		$body = self::sanitizeData( $body );
+		$body = self::sanitizeData( trim( $body ) );
 		$args = array( $body );
 		$stmt = $conn->prepare( "INSERT INTO About( body ) VALUES( ? )" );
 		$stmt->execute( $args );		

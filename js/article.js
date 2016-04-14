@@ -14,8 +14,9 @@ $( document ).on( "ready" , function()
 		var obj = JSON.parse(data);
 		if ( obj != undefined && obj.title != undefined && obj.uploadDate != undefined )
 		{
-			$( "#aboutTitle" ).text( obj.title );
-			$( "#aboutDate" ).text( obj.uploadDate );
+			$( "#aboutTitle" ).html( obj.title );
+			$( "#aboutDate" ).html( obj.uploadDate );
+			$( "#articleIMG" ).attr( "src" , obj.image );
 			var content = XBBCODE.process({
 			    text: obj.body,
 			    removeMisalignedTags: true,

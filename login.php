@@ -69,7 +69,11 @@ else if ( isset( $_GET['ticket'] ) && !Session::userLoggedIn() )
 }
 else if ( Session::userLoggedIn() )
 {	
-	header( "Location: admin.html" );
+	if ( isset( $_GET['logout'] ) )
+	{
+		Session::logoutUser();
+	}
+	header( "Location: admin.php" );
 	exit();
 }
 else

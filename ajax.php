@@ -17,6 +17,19 @@ if ( isset( $_GET['admin'] ) )
 	{
 	?>
 	<h1>
+		Change Editors
+	</h1>
+	<div>
+	<?php
+		$editors = Database::getAllEditors();
+		foreach( $editors as $editor )
+		{
+			$class = ( Session::user() === $editor[ 'username' ] ? "disabled" : "" );
+			echo "<span>${editor['username']} - <a href='#' class='${class}' onclick=\"removeLink( ${editor['id']},'editor', this.parentNode ); return false;\"  title='Remove'>X</a></span><br>";
+		}
+	?>
+
+	<h1>
 		Add Editor
 	</h1>
 	<form method='post' action='form.php?editor=yes'>
@@ -24,12 +37,31 @@ if ( isset( $_GET['admin'] ) )
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Add'>
 	</form>
+
+	</div>
 	<?php
 	}
 	else if ( $admin === "top" || $admin === "bottom" )
 	{
 		//link form to add links to header
-		//TODO: CHANGE OVER TO LIST OF ALL LINKS, with ability to change/remove existing or add new
+		$links = Database::getLinksByPlacement( $admin );
+	?>
+	<h1>
+		Change <?php echo ucfirst( $admin );?> Links
+	</h1>
+	<div>
+	<?php
+		foreach( $links as $link )
+		{
+			echo "<span>";
+			echo "<a href='${link['link']}'>${link['title']}</a> - ";
+			echo "<a href='#' onclick=\"removeLink( ${link['id']},'link', this.parentNode ); return false;\" title='Remove'>X</a>";
+			echo "</span><br>";
+		}
+		if ( count( $links ) == 0 )
+		{
+			echo "There are currently no links<br>";
+		}
 	?>
 	<h1>
 		Add Link To <?php echo ucfirst( $admin );?>
@@ -40,6 +72,7 @@ if ( isset( $_GET['admin'] ) )
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Add'>
 	</form>
+	</div>
 	<?php
 	}
 	else if ( $admin === "social" )
@@ -75,7 +108,7 @@ if ( isset( $_GET['admin'] ) )
 		Uploading a new image will overwrite the old logo.
 	</h5>
 	<form method='post' enctype='multipart/form-data' action='form.php?logo=yes'>
-		<img src='images/logo.png' alt='Club Logo' width=100 height=100><br>
+		<img src='images/logo.png' alt='Club Logo' height=100><br>
 		Logo Image:<br><input type='file' name='file' required><br>
 		<input type='hidden' name='token' value='<?php echo $token;?>'>
 		<input type='submit' value='Change'>
@@ -117,7 +150,7 @@ if ( isset( $_GET['admin'] ) )
 	foreach ( $featured as $key=>$row )
 	{
 		$i = $key + 1;
-		echo "<br><img src='${row['title']}' alt='Featured Image ${i}' width=50 height=50/><br>";
+		echo "<br><img src='${row['title']}' alt='Featured Image ${i}' height=50/><br>";
 		echo "Featured ${i} Image:<br><input type='file' name='f${i}Image'><br>";
 		echo "Featured ${i} Link:<br><input type='text' name='f${i}Text' value='${row['link']}'><br>";
 	}
@@ -158,7 +191,7 @@ if ( isset( $_GET['admin'] ) )
 		{
 	?>
 		<div id="article<?php echo $article['id'];?>">
-			<img src="<?php echo $article['image'];?>" alt="Article Image" width=50 height=50>
+			<img src="<?php echo $article['image'];?>" alt="Article Image" height=50>
 			<span><?php echo $article[ 'uploadDate' ];?> - </span>			
 			<span><?php echo $article[ 'title' ];?> - </span>
 			<button type='button' onclick="removeArticle( <?php echo $article['id'];?> );">Remove</button>
@@ -172,7 +205,7 @@ if ( isset( $_GET['admin'] ) )
 	}
 	exit();
 }
-else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
+else if ( isset( $_GET['removed'] ) )
 {
 	if ( !Session::userLoggedIn() )
 	{
@@ -188,23 +221,61 @@ else if ( isset( $_GET['removed'] ) && $_GET['removed'] === "article" )
 
 	if ( !isset( $_POST[ 'remove'] ) )
 	{
-		echo "Missing article id";
+		echo "Missing id";
 		exit();
 	}
 
-	Database::removeArticle( $_POST[ 'remove'] );
-	echo "true";
+	if ( $_GET['removed'] === "article" )
+	{
+		Database::removeArticle( $_POST[ 'remove'] );
+		echo "true";
+		exit();
+	}
+	else if ( $_GET['removed'] === "editor" )
+	{
+		$editor = Database::getEditorByID( $_POST['remove'] );
+		if ( !isset( $editor[ "username " ] ) || $editor[ "username" ] === Session::user() )
+		{
+			echo "Cannot remove yourself as an editor!";
+			exit();
+		}
+		Database::removeEditor( $_POST['remove' ] );
+		echo "true";
+		exit();		
+	}
+	else if ( $_GET['removed'] === "link" )
+	{
+		Database::removeLink( $_POST['remove' ] );
+		echo "true";
+		exit();	
+	}
+
+	echo "Not a request";
 	exit();
 }
 else if ( isset( $_GET['articlePage' ] ) )
 {
 	if ( $_GET['articlePage'] === "recent" )
 	{
-		echo json_encode( Database::getMostRecentArticle() );
+		$results = Database::getMostRecentArticle();
+		echo json_encode( $results );
 	}
 	else
 	{
-		echo json_encode( Database::getArticleByID( $_GET['articlePage'] ) );
+		$results = Database::getArticleByID( $_GET['articlePage'] );
+		echo json_encode( $results );
 	}
 	exit();
 }
+else if ( isset( $_GET['title'] ) )
+{
+	echo Database::sanitizeData( Config::$NET_LOGIN_BANNER );
+	exit();
+}
+else if ( isset( $_GET['search'] ) )
+{
+	$results = Database::searchArticles( $_GET['search'] );
+	echo json_encode( $results );
+	exit();
+}
+

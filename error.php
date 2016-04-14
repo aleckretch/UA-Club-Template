@@ -1,4 +1,5 @@
 <?php
+require_once './banner.php';
 $error = "";
 if ( isset( $_GET[ 'error'] ) )
 {
@@ -173,10 +174,7 @@ if ( isset( $_GET[ 'error'] ) )
 
 
 <div class="nav row">
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Home</a></div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Events</a></div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">Contract Us</a></div>
-		<div class="nav_cel col-sm-3 col-xs-6"><a href="default.asp">About</a></div>		
+<?php outputHeaderLinks();?>
 </div>
 <style>
 	.main_content{
@@ -258,6 +256,24 @@ if ( isset( $_GET[ 'error'] ) )
 	}
 	
 </style>
+
+<div class="footer">
+	<div class="row">
+		<div class="col col-sm-8  text-center">
+			<?php outputFooterLinks(); ?>
+		</div>
+		<div class="col col-sm-4 text-center" >
+			<?php outputSocialLinks(); ?>
+		</div>
+	</div>
+	<br>
+	<div class="row" style="font-size:0.8em; text-align:center;  font-weight: 900" >
+	<p > All contents of this site are the property of the Associated Students of The University of Arizona. &copy; 2015 Arizona Board of Regents</p>
+	</div>
+</div>
+<footer>
+
+</footer>
 
 </body>
 

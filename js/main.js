@@ -1,6 +1,16 @@
+function convertBB( index, element ) 
+{
+	console.log( "HERE" );
+	var content = XBBCODE.process({
+		    text: $( element ).html(),
+		    removeMisalignedTags: true,
+		    addInLineBreaks: true
+		});
+	$( element ).html( content.html );
+}	
+
 $( document ).on( "ready" , function()
 {	
-	console.log( "Entered" );
 	if ( $( "#aboutTextContent" ).length )
 	{
 		var content = XBBCODE.process({
@@ -46,6 +56,7 @@ $( document ).on( "ready" , function()
 	}
 
 	setInterval(nextImg,5000);
+
 	
 	$(window).resize(function () {
 		resize();
@@ -73,4 +84,11 @@ $( document ).on( "ready" , function()
 	resize();
 	
 	
+
+
+	//Go through all the article previews on the newsfeed and convert BBCode to HTML for each
+	$( "div.newsbox p" ).each( convertBB );
+
+	$( "p.articleBodyJS" ).each( convertBB );
+
 });
