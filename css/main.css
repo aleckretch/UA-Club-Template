@@ -12,6 +12,17 @@
 	clear: both;
 }
 
+.nav {
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+.content {
+	margin: 0 auto;
+	width: 90%;
+	text-align: center;
+}
+
 body {
 			width:100%;
 			min-height: 1000px;
@@ -273,25 +284,9 @@ a{
 		.social-icon a{
 			font-size:1.5em;
 		}
-		 
 
 
-
-
-
-
-
-
-
-
-
-
-
-//////
-//////
-//////
-
-//NEWFEED.PHP CSS
+/*NEWFEED.PHP CSS*/
 
   .about h1{
         font-size: 75px;

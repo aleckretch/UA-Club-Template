@@ -13,7 +13,6 @@ require_once './banner.php';
     $featuredItems = Database::getLinksByPlacement("featured");
 
 ?>
-
 <!doctype html>
 <html>
 
@@ -31,22 +30,6 @@ require_once './banner.php';
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="./js/title.js"></script>
-
-	<style>
-		.nav {
-			width: 90%;
-			margin: 0 auto;
-			margin-bottom: 10px;
-		}
-		.content {
-			margin: 0 auto;
-			width: 90%;
-			text-align: center;
-		}
-		
-		
-	</style>
-
 </head>
 
 <body>
