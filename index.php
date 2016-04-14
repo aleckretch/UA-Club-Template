@@ -60,7 +60,7 @@ require_once './banner.php';
 				<a href="#">
 					
 					<span class="glyphicon glyphicon-search"></span>
-					<input class="search_input" type="text"/>
+					<input class="search_input" id="search_input" type="text"/>
 				</a>
 			</div>
 		</div>
@@ -139,11 +139,7 @@ require_once './banner.php';
 	<div class="space">
 	</div>
 	</div>
-
 	
-	
-	
-
 	<div class="footer">
 		<div class="row">
 			<div class="col col-sm-8  text-center links">
@@ -164,4 +160,18 @@ require_once './banner.php';
 
 	</footer>
 </body>
+<script>
+	$(document).ready(function(){
+		$('#search_input').keypress(function(e) {
+			if(e.which == 13){
+				var keywords = $('#search_input').val();
+				if (keywords == ""){
+					return;
+				}
+				window.location.href = "newsfeed.php?search=" + keywords;
+			}
+				
+		});
+	});
+</script>
 </html>
