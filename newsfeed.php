@@ -1,6 +1,7 @@
 <?php
     require_once './banner.php';
     $articles = Database::getAllArticles();
+
 ?>
 <!doctype html>
 <html>
@@ -46,7 +47,7 @@
 				<a href="#">
 					
 					<span class="glyphicon glyphicon-search"></span>
-					<input class="search_input" type="text"/>
+					<input class="search_input" id="search_input" type="text"/>
 				</a>
 			</div>
 		</div>
@@ -72,12 +73,20 @@
 
 	<div class="contentpage">
 		<div class="about">
-			<h1> News & Events</h1>
+			<?php if ( isset($_GET['search'])) {
+			echo '<h1> Search Results</h1>';
+			$articles = Database::searchArticles( $_GET['search'] );
+
+			} else {
+			echo '<h1> News & Events</h1>';
+
+			}?>
+			
 		</div>
   			
 			<?php 
 			$article_count = 0;
-			$article_limit = 6;
+			$article_limit = 6; // Amount of articles per page
 			if (empty($articles)) {
 				echo "No articles found.";
 			} else {
@@ -95,6 +104,10 @@
 				}
 				
 				$current_articles = Database::getArticlesForNewsfeed($offset, $article_limit);
+				if ( isset($_GET['search'])) {
+					$current_articles = Database::getArticlesForSearch($offset, $article_limit, $_GET['search']);
+				} 
+
 				if ( empty( $current_articles ) )
 				{
 					echo "No articles found for this page.";
@@ -105,8 +118,8 @@
 					<h1><a href="article.php?id=<?php echo $article['id'];?>"><?php echo $article['title'];?></a></h1>
 					<h2> Posted: <?php echo $article['uploadDate'];?> </h2>
 					<p> <?php  $articleBody = $article['body'];
-					if(strlen($articleBody) > 356) {
-                        $articleBody = substr($articleBody, 0 ,355);
+					if(strlen($articleBody) > 280) {
+                        $articleBody = substr($articleBody, 0 ,279);
                     }
                     echo $articleBody; ?></p>
 				</div>
@@ -116,12 +129,36 @@
 		<div id="pageindicator">
             <ul>
             	<?php
-            	for ($i = 1; $i <= ceil($article_count / $article_limit); $i++) {
-            		?> <li <?php
-            		if ($i == $page) { echo 'id="active"';}?>>
-            		<a href="newsfeed.php?page=<?php echo $i;?>" > <?php echo $i;?></a>
-            		</li>
-            	<?php } ?>
+            	$maxPages = ceil($article_count / $article_limit);
+            	$search = "&search=";
+            	if (isset($_GET['search'])) {
+            		$search .= $_GET['search'];
+            	}
+            	if ($page > 1){
+            		echo "<li><a href='newsfeed.php?page=1",$search,"'><<</a></li>";
+            		echo "<li><a href='newsfeed.php?page=",$page-1,$search,"'><</a></li>";
+            	
+            	for ($i = $page-1; $i <= $page + min($maxPages-$page, 1); $i++) {
+            		if ($i == $page) { 
+            			echo "<li id='active'><a href='newsfeed.php?page=$i'>",$i,"</a></li>";
+            		} else {
+            			echo "<li><a href='newsfeed.php?page=$i",$search,"'>",$i,"</a></li>";
+            		}
+            	}
+            	} else {
+            		for ($i = 1; $i <= min($maxPages,3); $i++) {
+            			if ($i == $page) { 
+            				echo "<li id='active'><a href='newsfeed.php?page=$i",$search,"'>",$i,"</a></li>";
+            			} else {
+            				echo "<li><a href='newsfeed.php?page=$i",$search,"'>",$i,"</a></li>";
+            			}
+            		}
+            	}
+            	if ($page < $maxPages){
+            		echo "<li><a href='newsfeed.php?page=",$page+1,$search,"'>></a></li>";
+            		echo "<li><a href='newsfeed.php?page=$maxPages",$search,"'>>></a></li>";
+            	}
+            	?>
             </ul>
         </div>
 	</div>
@@ -152,4 +189,19 @@
 
 	</footer>
 </body>
+
+<script>
+	$(document).ready(function(){
+		$('#search_input').keypress(function(e) {
+			if(e.which == 13){
+				var keywords = $('#search_input').val();
+				if (keywords == ""){
+					return;
+				}
+				window.location.href = "newsfeed.php?search=" + keywords;
+			}
+				
+		});
+	});
+</script>
 </html>
