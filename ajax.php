@@ -106,6 +106,8 @@ if ( isset( $_GET['admin'] ) )
 	</h1>
 	<h5>
 		Uploading a new image will overwrite the old logo.
+		<br>
+		The image uploaded must be a PNG file.
 	</h5>
 	<form method='post' enctype='multipart/form-data' action='form.php?logo=yes'>
 		<img src='images/logo.png' alt='Club Logo' height=100><br>

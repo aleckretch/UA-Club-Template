@@ -17,6 +17,11 @@ $( document ).on( "ready" , function()
 			$( "#aboutTitle" ).html( obj.title );
 			$( "#aboutDate" ).html( obj.uploadDate );
 			$( "#articleIMG" ).attr( "src" , obj.image );
+			if ( obj.image == "" )
+			{
+				$( "#articleIMG" ).css( "display" , "none" );
+			}
+			
 			var content = XBBCODE.process({
 			    text: obj.body,
 			    removeMisalignedTags: true,

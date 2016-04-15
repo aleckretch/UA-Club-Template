@@ -39,7 +39,7 @@
 
 </div>
 <div class="logo">
-	<img src="images/Layer-8.png" />
+	<img src="images/logo.png" />
 
 </div>
 

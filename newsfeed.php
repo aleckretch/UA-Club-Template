@@ -56,7 +56,7 @@
 
 	</div>
 	<div class="logo">
-		<img src="images/Layer-8.png" />
+		<img src="images/logo.png" />
 
 	</div>
 
@@ -72,7 +72,7 @@
 	</div>
 
 	<div class="contentpage">
-		<div class="about">
+		<div class="newsAbout">
 			<?php if ( isset($_GET['search'])) {
 			echo '<h1> Search Results</h1>';
 			$articles = Database::searchArticles( $_GET['search'] );
