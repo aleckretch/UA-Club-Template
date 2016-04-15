@@ -93,6 +93,11 @@ class Session
 	*/
 	public static function isTimedOut()
 	{
+		if ( !isset( $_SESSION[ 'time' ] ) )
+		{
+			return true;
+		}
+		
 		$totalTime = 60 * 60 * 1;
 		date_default_timezone_set( "America/Phoenix" );
 		$currentTime = time();

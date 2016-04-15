@@ -345,12 +345,28 @@ class Database
 	*/
 	public static function getArticlesForNewsfeed($offset, $article_limit)
 	{
+		$article_limit = intval( $article_limit );
+		$offset = intval( $offset );
 		$conn = self::connect();
 		$stmt = $conn->prepare( "SELECT * FROM Articles ORDER BY uploadDate DESC,id DESC LIMIT $offset, $article_limit");
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
 
+	/*
+		Gets an array of the articles for the certain page(offset) in the search page, sorted by most recent first.
+	*/
+	public static function getArticlesForSearch($offset, $article_limit, $searchTerm)
+	{
+		$article_limit = intval( $article_limit );
+		$offset = intval( $offset );
+		$searchTerm = Database::sanitizeData( $searchTerm );
+		$args = array( $searchTerm . "%" , "%" . $searchTerm . "%");
+		$conn = self::connect();
+		$stmt = $conn->prepare( "SELECT * FROM Articles WHERE title LIKE ? OR body LIKE ? ORDER BY uploadDate DESC,id DESC LIMIT $offset, $article_limit" ); 
+		$stmt->execute( $args );
+		return $stmt->fetchAll();
+	}
 	/*
 		Deletes the article with the id provided.
 		Returns the error code that occured, 00000 if ok.

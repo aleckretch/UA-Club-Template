@@ -272,10 +272,3 @@ else if ( isset( $_GET['title'] ) )
 	echo Database::sanitizeData( Config::$NET_LOGIN_BANNER );
 	exit();
 }
-else if ( isset( $_GET['search'] ) )
-{
-	$results = Database::searchArticles( $_GET['search'] );
-	echo json_encode( $results );
-	exit();
-}
-

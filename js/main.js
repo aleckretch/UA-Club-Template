@@ -84,7 +84,14 @@ $( document ).on( "ready" , function()
 	resize();
 	
 	
-
+	$('#search_input').change(function(e) {
+		var keywords = $('#search_input').val();
+		if (keywords == ""){
+			return;
+		}
+		window.location.href = "newsfeed.php?search=" + keywords;
+		
+	});
 
 	//Go through all the article previews on the newsfeed and convert BBCode to HTML for each
 	$( "div.newsbox p" ).each( convertBB );

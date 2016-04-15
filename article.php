@@ -19,162 +19,11 @@
 	<script src="js/xbbcode.js"></script>
 	<script src="./js/title.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/xbbcode.css">
-	<style>
-		body {
-			width:100%;
-			min-height: 1000px;
-			position: relative;
-		}
-		a{
-			text-decoration: none !important;
-			
-		}
-		.theme-red {
-			background: #AC0820;
-		}
-		
-		
-		.logo {
-			height: 200px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		.logo img {
-			margin: 10px;
-			height: 60%;
-		}
-		.nav {
-			width: 90%;
-			margin: 0 auto;
-			margin-bottom: 10px;
-		}
-		.nav_cel {
-			height:50px;
-			list-style-type: none;
-			margin: 0;
-			//padding: 5px;
-			overflow: hidden;
-			background-color: #e3dada;
-			text-align: center;
-			line-height: 50px;
-		}
-		 
-
-		.nav_cel a {
-			font-family: MiloOT-Bold;
-			font-size: 1.5em;
-			color: white;
-			text-align: center;
-			padding: 6px 8px;
-			border-radius: 5px;
-			color: #AC0820;
-			text-decoration: none;
-		}
-		
-		.nav_cel a:hover {
-			background-color: #AC0820;
-			color: white;
-			text-decoration: none;
-		}
-		
-		.jumbotron_area {
-			
-			white-space: nowrap;
-			text-align: center;
-			overflow: hidden;
-		}
-		.jumbotron_area img {
-			width: 90%;
-			
-		}
-		.jumb_image{
-			position: relative;
-			width: 100%;
-			display: inline-block;
-			
-		
-		}
-		.bullets {
-			margin: 0 auto;
-			text-align: center;
-			margin-top:10px;
-		}
-		
-		.content {
-			margin: 0 auto;
-			width: 90%;
-			text-align: center;
-		}
-	</style>
 
 </head>
 
 <body>
-	<style>
-		.header {
-			height: 80px;
-			//border: 1px solid black;
-			width: 100%;
-		}
-		.ua_header {
-			height: 60px;
-			padding: 10px;
-		}
-		.ua_header .left{
-			position: absolute;
-				top:5px;
-		}
-		.ua_header img {
-			margin-left: 3px;
-			height: 60px;
-		}
-		.pull-right{
-			float: none;
-			right:0px;
-				height: 60px;
-			
-		}
-		.pull-right .glyphicon-search {
-			line-height: 60px;
-			font-size: 2.5em;
-		
-			color: white;
-			padding-right: 10px;
-			transition:  all .3s ;
-		}
-		.search_input{
-			right:10px;
-			height: 40px;
-		
-			width:0px;
-			padding: 0;
-			margin: 0;
-			border: 0;
-			border: none;
-			font-family:MiloOT-Thin;
-			transition:  all .3s ;
-			  
-		}
-		.search_input:focus{
-			 outline-width: 0;
-		}
-		.pull-right.expand .search_input{
-			border-left: 30px white solid;
-			
-			font-size: 2em;
-			width:150px;
-			 transition:  all .3s ; 
-			
-		}
-		.pull-right.expand .glyphicon-search{
-			transition:  all .5s ; 
-			font-size: 1em;
-			color:#AC0820;
-			right:-40px;
-			font-size: 1.6em;
-		}
-	</style>
+
 	<div class="header theme-red">
 		<div class="ua_header  clearfix">
 			<div class="left">
@@ -184,7 +33,7 @@
 				<a href="#">
 					
 					<span class="glyphicon glyphicon-search"></span>
-					<input class="search_input" type="text"/>
+					<input class="search_input" id="search_input" type="text"/>
 				</a>
 			</div>
 		</div>
@@ -202,58 +51,7 @@
 	<div class="nav row">
 		<?php outputHeaderLinks();?>
 	</div>
-<style>
-    .main_content{
-        position: relative;
-    }
-	.contentpage{
-	    background-color: rgba(255, 255, 255, 0.6);
 
- 	    margin: 0 5%;
-
- 	    max-height: 800px;
-
- 	    padding: 1%;
-	}
-	.bg_img {
-		position: absolute;
-		width:100%;
-		bottom: 0px;
-        z-index: -1;
-	}
-	.main_content .sub_logo{
-		position: absolute;
-		bottom: 0px;
-		margin: 0 auto;
-		width:0px;
-		left:0;
-		right:0;
-		
-		border-top:transparent 80px solid;
-		border-right:transparent 70px solid;
-		border-left:transparent 70px solid;
-		border-bottom:#e3e3e3 80px solid;
-	}
-	
-	.main_content  .sub_logo_img{
-		position: absolute;
-		width: 70px;
-		bottom: -10px;
-		margin: 0 auto;
-		left:0;
-		right:0;
-	}
-    .about h1, h2{
-    line-height: 10px;
-    }
-    
-    .about p {
-    padding-top: 15px;
-    font-family: MiloOT-Medi;
-    }
-	}
-	
-</style>
 <div class="main_content">
 	<div class="jumbotron_area">
 		<img id="articleIMG" src="images/140728-eng-rooftop-0037-x3.jpg" alt="Article Image"/>
@@ -308,7 +106,7 @@
 			<div class="col col-sm-8  text-center">
 				<?php outputFooterLinks(); ?>
 			</div>
-			<div class="col col-sm-4 text-center" >
+			<div class="col col-sm-4 text-center social-icon" >
 				<?php outputSocialLinks(); ?>
 			</div>
 		</div>
