@@ -74,8 +74,8 @@ function outputArticleText( $articles, $index )
 		echo '<div class="">
 		<div class="text_box col-xs-12 newsTextJS">';
 		echo "<a href='article.php?id=" . $articles[ $index ]['id'] . 
-		"'><p class='title'>" . $articles[ $index ]['title'] . "</p>";
-		echo "<p class='articleBodyJS'>" . $articleBody . "</p></a>";
+		"'><p class='title'>" . $articles[ $index ]['title'] . "</p></a>";
+		echo "<p class='articleBodyJS'>" . $articleBody . "</p>";
 		echo '</div></div>';
 	}
 }

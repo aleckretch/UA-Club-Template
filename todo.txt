@@ -41,3 +41,11 @@ Get all CSS from different pages into one css file
 Search box does not appear on admin.php and error.php, probably missing some css. Should be fixed when all the css goes into main.css
 
 
+
+
+Front end
+club logo -> go to index.html
+logo restrict size
+	
+
+
