@@ -774,7 +774,7 @@ var XBBCODE = (function() {
             ret.html = ret.html.replace(/\[.*?\]/g,"");
         }
         if (config.addInLineBreaks) {
-            ret.html = '<div >' + ret.html + '</div>';
+            ret.html = '<div style="word-wrap: break-word;">' + ret.html.replace(/(\n)+/g, '<br />') + '</div>';
         }
 
         ret.html = ret.html.replace("&#91;", "["); // put ['s back in
