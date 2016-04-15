@@ -193,9 +193,16 @@ if ( isset( $_GET['admin'] ) )
 		{
 	?>
 		<div id="article<?php echo $article['id'];?>">
+			<?php 
+			if ( $article[ 'image' ] !== "" )
+			{
+			?>
 			<img src="<?php echo $article['image'];?>" alt="Article Image" height=50>
+			<?php
+			}
+			?>
 			<span><?php echo $article[ 'uploadDate' ];?> - </span>			
-			<span><?php echo $article[ 'title' ];?> - </span>
+			<span><?php echo "<a href='article.php?id=${article['id']}'>${article[ 'title' ]}</a>";?> - </span>
 			<button type='button' onclick="removeArticle( <?php echo $article['id'];?> );">Remove</button>
 		</div>
 	<?php
