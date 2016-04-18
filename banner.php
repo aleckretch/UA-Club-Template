@@ -17,7 +17,7 @@ function outputHeaderLinks()
 		if ($index === $len && $index%2 ===1){
 			$smallSize = "col-xs-12";
 		}
-		echo "<div class='nav_cel col-sm-".(12/$len)." ".$smallSize." '><a href='${topLink['link']}'>${topLink["title"]}</a></div>";
+		echo "<div class='nav_cel col-sm-". ceil(12/$len)." ".$smallSize." '><a href='${topLink['link']}'>${topLink["title"]}</a></div>";
 	}     
 }
 
