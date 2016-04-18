@@ -6,10 +6,18 @@ require_once './database.php';
 */
 function outputHeaderLinks()
 {
-	$topLinks = Database::getLinksByPlacement("top");        
+	$topLinks = Database::getLinksByPlacement("top");     
+	$len = count($topLinks);
+	$index = 0;
+	
 	foreach($topLinks as $topLink) 
 	{
-		echo "<div class='nav_cel col-sm-3 col-xs-6'><a href='${topLink['link']}'>${topLink["title"]}</a></div>";
+		$index = $index+1;
+		$smallSize="col-xs-6";
+		if ($index === $len && $index%2 ===1){
+			$smallSize = "col-xs-12";
+		}
+		echo "<div class='nav_cel col-sm-".(12/$len)." ".$smallSize." '><a href='${topLink['link']}'>${topLink["title"]}</a></div>";
 	}     
 }
 
