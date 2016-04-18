@@ -37,7 +37,8 @@ a{
 		}
 		.logo img {
 			margin: 10px;
-			height: 60%;
+			height: 120px;
+			width:auto;
 		}
 
 
@@ -273,6 +274,7 @@ a{
 		}
 		.social-icon a{
 			font-size:1.5em;
+			margin-right: 5px;
 		}
 
 

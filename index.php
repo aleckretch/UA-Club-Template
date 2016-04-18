@@ -51,9 +51,11 @@ require_once './banner.php';
 	
 	<div class="header theme-red">
 		<div class="ua_header  clearfix">
+			<a href="http://www.arizona.edu/">
 			<div class="left">
 				<img src="images/svg+xml.svg">
 			</div>
+				</a>
 			<div class="pull-right">
 				<a href="#">
 					
@@ -67,7 +69,10 @@ require_once './banner.php';
 
 	</div>
 	<div class="logo">
-		<img src="images/logo.png" />
+		<a href="index.php">
+			<img src="images/logo.png" />
+		</a>
+		
 
 	</div>
 

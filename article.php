@@ -19,16 +19,29 @@
 	<script src="js/xbbcode.js"></script>
 	<script src="./js/title.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/xbbcode.css">
-
+	<style>
+		.nav {
+			width: 90%;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		.content {
+			margin: 0 auto;
+			width: 90%;
+			text-align: center;
+		}
+	</style>
 </head>
 
 <body>
 
 	<div class="header theme-red">
 		<div class="ua_header  clearfix">
+				<a href="http://www.arizona.edu/">
 			<div class="left">
 				<img src="images/svg+xml.svg">
 			</div>
+				</a>
 			<div class="pull-right">
 				<a href="#">
 					
@@ -42,7 +55,9 @@
 
 	</div>
 	<div class="logo">
-		<img src="images/logo.png" />
+		<a href="index.php">
+			<img src="images/logo.png" />
+		</a>
 
 	</div>
 
