@@ -140,8 +140,8 @@
             		$search = "&search=${_GET['search']}";
             	}
             	if ($page > 1){
-            		echo "<li><a href='newsfeed.php?page=1",$search,"'><<</a></li>";
-            		echo "<li><a href='newsfeed.php?page=",$page-1,$search,"'><</a></li>";
+            		echo "<li><a href='newsfeed.php?page=1",$search,"'>&lt;&lt;</a></li>";
+            		echo "<li><a href='newsfeed.php?page=",$page-1,$search,"'>&lt;</a></li>";
             	
             	for ($i = $page-1; $i <= $page + min($maxPages-$page, 1); $i++) {
             		if ($i == $page) { 
@@ -160,8 +160,8 @@
             		}
             	}
             	if ($page < $maxPages){
-            		echo "<li><a href='newsfeed.php?page=",$page+1,$search,"'>></a></li>";
-            		echo "<li><a href='newsfeed.php?page=$maxPages",$search,"'>>></a></li>";
+            		echo "<li><a href='newsfeed.php?page=",$page+1,$search,"'>&gt;</a></li>";
+            		echo "<li><a href='newsfeed.php?page=$maxPages",$search,"'>&gt;&gt;</a></li>";
             	}
             	?>
             </ul>

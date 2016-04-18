@@ -29,30 +29,16 @@ function removeLink( id, removedTitle, elementRemoved )
 function removeArticle( id )
 {
 	removeLink( id, "article" , "#article" + id );
-	/*
-	if ( confirm( "Do you really wish to remove this article?" ) )
-	{
-		$.post( "ajax.php?removed=article" , { "remove" : id, "token" : PHP_TOKEN } ).done(
-		function( data )
-		{
-			if ( data == "true" )
-			{
-				$( "#article" + id ).remove();	
-			}
-			else
-			{
-				alert( data );
-			}
-		});
-	}
-	*/
 }
 
 $( document ).ready( function() {
+	//put all of the get parameters into an object
 	var queryDict = {};
 	location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
 
+	//default the current admin form to editor
 	var current = "editor";
+	//if current was passed along as a get parameter, then use the provided parameter as the current
 	if ( queryDict.current )
 	{
 		current = queryDict.current;
