@@ -50,8 +50,9 @@
 <div class="nav row">
 		<?php outputHeaderLinks(); ?>	
 </div>
+<br>
 <div class="main_content" style='min-height: 10em;'>
-	<div id="mainContent" style='margin-left: 10%;'>
+	<div id="mainContent" class='contentpage' style='margin-left: 10%;'>
 		<div>
 			<select id='changer'>
 				<option value='editor' selected>Change Editors</option>

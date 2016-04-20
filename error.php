@@ -51,9 +51,15 @@ if ( isset( $_GET[ 'error'] ) )
 <div class="nav row">
 <?php outputHeaderLinks();?>
 </div>
+<br>
 <div class="main_content" style='min-height: 10em;'>
-	<div id="mainContent">
-		<?php echo Database::sanitizeData( $error );?>
+	<div id="mainContent" class='contentpage'>
+		<h3>
+			Oops, something went wrong!
+		</h3>
+		<div>
+			<?php echo Database::sanitizeData( $error );?>
+		</div>
 	</div>
 	<div class="sub_logo">
 		

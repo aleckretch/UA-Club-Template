@@ -243,7 +243,7 @@ else if ( isset( $_GET['removed'] ) )
 	else if ( $_GET['removed'] === "editor" )
 	{
 		$editor = Database::getEditorByID( $_POST['remove'] );
-		if ( !isset( $editor[ "username " ] ) || $editor[ "username" ] === Session::user() )
+		if ( !isset( $editor[ "username" ] ) || $editor[ "username" ] === Session::user() )
 		{
 			echo "Cannot remove yourself as an editor!";
 			exit();
