@@ -40,27 +40,57 @@ function readValue( $prompt = '' )
 }
 
 echo "Hello, welcome to the club setup script\n";
+$configExists = file_exists( "./config.php" );
+$sameConstant = "-same";
+if ( $configExists )
+{
+	require_once "./config.php";
+	echo "Config file found, to keep existing value for any prompt: type '${sameConstant}'.\n";
+}
+
 $name = readValue( "What is the name of the database setup from the cpanel?\n" );
+if ( $configExists && $name === $sameConstant )
+{
+	$name = Config::$DB_NAME;	
+}
 $user = readValue( "What is the username of the database setup from the cpanel?\n" );
+if ( $configExists && $user === $sameConstant )
+{
+	$user = Config::$DB_USER;	
+}
 $pass = readValue( "What is the password of this username setup from the cpanel?\n" );
+if ( $configExists && $pass === $sameConstant )
+{
+	$pass = Config::$DB_PASS;	
+}
 echo "A netid of someone who will be able to login to the site's admin panel is needed.\n";
 $netid = readValue( "The netid for that person is?\n" );
 $banner = readValue( "What will the title for the site be?\n" );
-$url = readValue( "What will the url for the site be?\n" );
-if ( strpos( $url , "http://" ) === false )
+if ( $configExists && $banner === $sameConstant )
 {
-	$url = "http://${url}";
+	$banner = Config::$NET_LOGIN_BANNER;	
 }
-
-if ( $url[ strlen( $url ) - 1 ] === "/" )
+$url = readValue( "What will the url for the site be?\n" );
+if ( $configExists && $url === $sameConstant )
 {
-	$url .= "login.php";
+	$url = Config::$NET_LOGIN_URL;	
 }
 else
 {
-	$url .= "/login.php";
-}
+	if ( strpos( $url , "http://" ) === false )
+	{
+		$url = "http://${url}";
+	}
 
+	if ( $url[ strlen( $url ) - 1 ] === "/" )
+	{
+		$url .= "login.php";
+	}
+	else
+	{
+		$url .= "/login.php";
+	}
+}
 //For each placeholder in copyConfig.txt, replace placeholder with the actual text
 $str = file_get_contents( "./copyConfig.php" );
 $replace = array(
