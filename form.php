@@ -9,8 +9,8 @@ function handleUpload( $key, $pathToParent, $canOverwrite, $givenName = NULL )
 		return "";
 	}
 
-	//if the file uploaded is larger then 3mb don't allow the upload to continue into database
-	if ( $_FILES[ $key ]['size'] > 3000000) 
+	//if the file uploaded is larger then 10mb don't allow the upload to continue into database
+	if ( $_FILES[ $key ]['size'] > 10000000) 
 	{
 		Database::logError( "File size too large" , false );
 		return "";
@@ -51,7 +51,7 @@ function handleUpload( $key, $pathToParent, $canOverwrite, $givenName = NULL )
 		if ( !$canOverwrite && file_exists( $fileName ) )
 		{
 			Database::logError( "File already exists" , false );
-			return "";		
+			return $fileName;		
 		}
 	
 		//move the uploaded file to the uploads folder under the name of its id
@@ -201,7 +201,7 @@ else if ( isset( $_GET['featured' ] ) )
 		$i = $key + 1;
 		if ( isset( $_POST[ "f${i}Text" ] ) )
 		{
-			$filePath = handleUpload( "f${i}Image" , "./images" , false );
+			$filePath = handleUpload( "f${i}Image" , "./uploads" , false );
 			//if the filePath is empty from handleUpload, then use the old file that was already in the database
 			$filePath = ( $filePath === "" ? $row[ "title" ] : $filePath );
 			Database::updateFeatured( $row[ "id" ] , $filePath, $_POST[ "f${i}Text" ] );
